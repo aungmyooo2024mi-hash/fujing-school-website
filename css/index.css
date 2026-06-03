@@ -1,0 +1,193 @@
+body {
+  margin: 0;
+  font-family: "Microsoft YaHei", sans-serif;
+  background: #fff;
+  color: #333;
+}
+
+/* 顶部：蓝色横幅改为头图轮播背景 */
+.mobile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #004d99;
+  /* 去掉纯色背景 */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  color: #fff;
+  padding: 10px;
+  z-index: 10;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.logo img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.school-name h1 {
+  font-size: 16px;
+  margin: 0;
+}
+
+.school-name p {
+  font-size: 12px;
+  margin: 0;
+  color: #cc0000;
+}
+
+.menu-toggle {
+  background: #cc0000;
+  color: #fff;
+  border: none;
+  font-size: 20px;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-left: auto;
+  /* 靠右 */
+}
+
+/* 右侧竖向导航优化 */
+.nav {
+  display: none;
+  background: rgba(255, 255, 255, 0.95);
+  /* 浅白底色 */
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav li {
+  border-top: 1px solid #eee;
+}
+
+.nav a {
+  display: block;
+  padding: 10px;
+  color: #004d99;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.nav a:hover {
+  background: #e6f0fa;
+  /* 浅蓝背景 */
+  color: #cc0000;
+  /* 红字 */
+}
+
+.nav a.active {
+  background: #cc0000;
+  color: #fff;
+  border-radius: 4px;
+}
+
+/* Banner轮播 */
+.banner {
+  position: relative;
+  overflow: hidden;
+}
+
+.banner-slide {
+  display: none;
+}
+
+.banner-slide.active {
+  display: block;
+}
+
+.banner-slide img {
+  width: 100%;
+  height: auto;
+}
+
+/* 公告卡片优化 */
+.news {
+  padding: 30px 20px;
+  margin-top: 60px;
+  /* 与顶部栏拉开距离 */
+}
+
+.news h2 {
+  font-size: 20px;
+  border-left: 5px solid #cc0000;
+  padding-left: 10px;
+  color: #004d99;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #ddd;
+  margin: 20px 0;
+  padding: 20px;
+  border-radius: 6px;
+}
+
+.card h3 {
+  margin: 0 0 10px;
+  color: #cc0000;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.card p {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+/* 校园简介与环境板块 */
+.intro,
+.environment {
+  padding: 30px 20px;
+  margin-top: 40px;
+}
+
+.intro h2,
+.environment h2 {
+  font-size: 20px;
+  border-left: 5px solid #cc0000;
+  padding-left: 10px;
+  color: #004d99;
+  margin-bottom: 20px;
+}
+
+.env-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.env-gallery img {
+  width: 100%;
+  max-width: 48%;
+  border-radius: 6px;
+}
+
+/* 页脚 */
+.footer {
+  background: #004d99;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  margin-top: 40px;
+}
+
+.footer p {
+  margin: 5px 0;
+}

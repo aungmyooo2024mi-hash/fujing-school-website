@@ -1,0 +1,107 @@
+/* ==========================================================================
+   1. 全局重置 
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  /* 防止移动端横屏时字体莫名其妙自动变大 */
+  scroll-behavior: smooth;
+  /* 让页面锚点跳转或滚动时更平滑（可选） */
+}
+
+/* ==========================================================================
+   2. 列表重置 
+   ========================================================================== */
+ul,
+ol,
+li {
+  list-style: none;
+}
+
+/* ==========================================================================
+   3. 全局基础排版 (决定全站的字体、行高、文字颜色)
+   ========================================================================== */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  /* 或者是 14px，取决于你学校官网的设计 */
+  line-height: 1.6;
+  /* 舒适的阅读行高 */
+  color: #222222;
+  /* 全局主文字颜色（比纯黑 #000 更有高级感） */
+  background-color: #ffffff;
+  /* 全局背景色 */
+  -webkit-font-smoothing: antialiased;
+  /* 让 macOS/iOS 上的字体看起来更清晰 */
+}
+
+/* ==========================================================================
+   4. 常用元素优化 (链接、图片和表单)
+   ========================================================================== */
+/* 链接：默认继承父级颜色，去掉下划线 */
+a {
+  color: inherit;
+  text-decoration: none;
+  /* 可以在这里加一个全局的渐变过渡，后面做 Hover 效果时会很柔和 */
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+/* 图片与媒体：防止图片撑破容器，并消除图片底部的微小缝隙 */
+img,
+video,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* 表单控件：强制继承 body 的字体（否则浏览器默认会用巨丑的自带字体） */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* 让所有可点击的按钮鼠标悬停时都变成“小手” */
+button,
+[type="button"],
+[type="submit"] {
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   5. 实用公共工具类 (选配，开发时经常能用到)
+   ========================================================================== */
+/* 网页版心：1200px 居中（完美契合你之前学校官网的设计要求） */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 15px;
+  /* 移动端时的两侧安全留白 */
+  padding-left: 15px;
+}
+
+/* 文本单行省略号（新闻列表标题太长时直接变 ...） */
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 简单的清除浮动（如果后面布局用到 float 的话） */
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
