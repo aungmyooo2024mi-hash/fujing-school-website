@@ -1,0 +1,135 @@
+/* ==========================================================================
+   1. 全局变量与核心版式 (CSS Variables & Base Layout)
+   ========================================================================== */
+:root {
+  --primary-color: #0A2540;
+  /* 核心藏青蓝 */
+  --secondary-color: #D4AF37;
+  /* 点缀金黄色 */
+  --text-main: #222222;
+  /* 主文字黑 */
+  --text-muted: #666666;
+  /* 次文字灰 */
+  --bg-light: #F4F6F9;
+  /* 浅灰底衬 */
+  --transition-speed: 0.3s;
+  /* 全局柔和过渡速度 */
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  color: var(--text-main);
+  background-color: #ffffff;
+}
+
+/* ==========================================================================
+   2. 手机端/移动端优先样式 (Mobile First Styles < 768px)
+   ========================================================================== */
+
+/* 顶部导航栏 */
+.mobile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #eef2f5;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.mobile-header .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mobile-header .logo img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.mobile-header .school-name h1 {
+  font-size: 16px;
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.mobile-header .school-name p {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+/* 手机端汉堡按钮 */
+.menu-toggle {
+  font-size: 24px;
+  color: var(--primary-color);
+  background: none;
+  border: none;
+  display: block;
+  /* 手机端显示 */
+}
+
+/* 手机端导航列表：默认隐藏，通过 JS 改变 display */
+.mobile-header .nav {
+  display: none;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  background-color: var(--primary-color);
+  padding: 10px 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 当 JS 给 nav 加上 .active 类时显示 */
+.mobile-header .nav.active {
+  display: block;
+}
+
+.mobile-header .nav ul {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-header .nav ul li a {
+  display: block;
+  padding: 12px 24px;
+  color: #ffffff;
+  font-size: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.mobile-header .nav ul li a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--secondary-color);
+}
+
+/* 页脚 */
+.footer {
+  background-color: #051626;
+  /* 更深的藏青蓝托底 */
+  color: rgba(255, 255, 255, 0.75);
+  padding: 30px 16px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.footer p {
+  margin-bottom: 6px;
+}
+
+.footer p:last-child {
+  margin-bottom: 0;
+}
