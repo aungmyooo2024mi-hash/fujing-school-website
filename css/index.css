@@ -16,16 +16,24 @@
   /* 全局柔和过渡速度 */
 }
 
+/* 全局初始化，确保彻底消除任何死角白边 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   color: var(--text-main);
   background-color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
 /* ==========================================================================
    2. 手机端/移动端优先样式 (Mobile First Styles < 768px)
    ========================================================================== */
 
-/* 顶部导航栏 */
+/* 顶部导航栏包裹层 */
 .mobile-header {
   display: flex;
   justify-content: space-between;
@@ -36,6 +44,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
+  width: 100%;
 }
 
 .mobile-header .logo {
@@ -69,10 +78,10 @@ body {
   background: none;
   border: none;
   display: block;
-  /* 手机端显示 */
+  cursor: pointer;
 }
 
-/* 手机端导航列表：默认隐藏，通过 JS 改变 display */
+/* 手机端导航列表：默认隐藏 */
 .mobile-header .nav {
   display: none;
   position: absolute;
@@ -92,6 +101,7 @@ body {
 .mobile-header .nav ul {
   display: flex;
   flex-direction: column;
+  list-style: none;
 }
 
 .mobile-header .nav ul li a {
@@ -99,6 +109,7 @@ body {
   padding: 12px 24px;
   color: #ffffff;
   font-size: 15px;
+  text-decoration: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -112,7 +123,6 @@ body {
   position: relative;
   width: 100%;
   height: 210px;
-  /* 手机端高度缩减 */
   overflow: hidden;
   background-color: #000;
 }
@@ -135,14 +145,12 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* 保证图片不拉伸变形 */
   opacity: 0.85;
-  /* 轻微暗化衬托文字 */
 }
 
 /* 最新公告板块 */
 .news {
-  padding: 30px 16px;
+  padding: 40px 16px;
   background-color: var(--bg-light);
 }
 
@@ -150,7 +158,7 @@ body {
   font-size: 22px;
   color: var(--primary-color);
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   position: relative;
 }
 
@@ -164,19 +172,20 @@ body {
   margin: 8px auto 0;
 }
 
+/* 移动端卡片容器：保持垂直堆叠 */
+.card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 .news .card {
   background-color: #ffffff;
   padding: 20px;
   border-radius: 4px;
-  margin-bottom: 16px;
   border-left: 4px solid var(--primary-color);
-  /* 藏青蓝左边框增加正式感 */
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
   transition: transform var(--transition-speed);
-}
-
-.news .card:last-child {
-  margin-bottom: 0;
 }
 
 .news .card h3 {
@@ -194,7 +203,6 @@ body {
 /* 页脚 */
 .footer {
   background-color: #051626;
-  /* 更深的藏青蓝托底 */
   color: rgba(255, 255, 255, 0.75);
   padding: 30px 16px;
   text-align: center;
@@ -216,13 +224,13 @@ body {
    ========================================================================== */
 @media (min-width: 768px) {
 
-  /* 导航栏变为 PC 端全宽居中版式 */
+  /* 顶部导航外包裹大满栏：给一个精致的阴影和底色 */
   .mobile-header {
-    max-width: 1200px;
-    margin: 0 auto;
+    padding: 0 calc((100% - 1200px) / 2);
+    /* 💡 完美解决电脑端两边太空的问题 */
     height: 90px;
-    padding: 0 15px;
-    border-bottom: none;
+    border-bottom: 1px solid #eef2f5;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
   }
 
   .mobile-header .logo img {
@@ -246,7 +254,6 @@ body {
   /* 恢复 PC 端横向导航条 */
   .mobile-header .nav {
     display: block !important;
-    /* 强制覆盖手机端的隐藏 */
     position: static;
     width: auto;
     background: none;
@@ -256,19 +263,20 @@ body {
 
   .mobile-header .nav ul {
     flex-direction: row;
-    gap: 20px;
+    gap: 24px;
   }
 
   .mobile-header .nav ul li a {
-    padding: 10px 4px;
+    padding: 10px 0;
     color: var(--text-main);
     font-size: 16px;
     font-weight: 500;
+    text-decoration: none;
     border-bottom: 3px solid transparent;
-    /* 预留底部交互线位置 */
+    transition: color var(--transition-speed), border-color var(--transition-speed);
   }
 
-  /* PC 端 Hover 效果：文字变蓝，底下出金线 */
+  /* PC 端 Hover 效果 */
   .mobile-header .nav ul li a:hover {
     background: none;
     color: var(--primary-color);
@@ -277,15 +285,14 @@ body {
 
   /* PC 端轮播图加大 */
   .banner {
-    height: 500px;
+    height: 480px;
   }
 
-  /* PC 端最新公告：3栏并排卡片布局 */
+  /* PC 端最新公告版心 */
   .news {
     max-width: 1200px;
     margin: 0 auto;
     background-color: #ffffff;
-    /* PC端保持干净白底 */
     padding: 60px 15px;
   }
 
@@ -294,60 +301,35 @@ body {
     margin-bottom: 40px;
   }
 
-  /* 利用 Flexbox 将卡片横向排列 */
-  .news .card-container,
-  /* 如果后续在html里给卡片包一层这个类会更完美 */
-  .news {
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* 针对直接子级 card 的 PC 布局重置 */
-  .news {
-    display: block;
-    /* 解除手机端平铺 */
-  }
-
-  /* 让卡片在 PC 端横向浮动或弹性排布 */
-  .news {
-    overflow: hidden;
-    /* 清除浮动 */
+  /* 💡 核心修正：利用 Flexbox 完美实现三栏并排卡片，彻底废弃老旧的 float */
+  .card-container {
+    flex-direction: row;
+    gap: 24px;
   }
 
   .news .card {
-    float: left;
-    width: calc(33.333% - 20px);
-    margin-right: 30px;
-    margin-bottom: 0;
+    flex: 1;
+    /* 让三张卡片等宽平分空间 */
     border-left: none;
     border-top: 4px solid var(--primary-color);
     /* PC端改为上边框，更大气 */
     padding: 30px 24px;
     background-color: var(--bg-light);
-    /* PC端卡片用灰色背景托一下 */
-  }
-
-  .news .card:last-child {
-    margin-right: 0;
+    border-radius: 6px;
   }
 
   .news .card:hover {
     transform: translateY(-5px);
-    /* 鼠标悬浮轻微上浮 */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   }
 
   /* PC 端页脚大通栏 */
   .footer {
-    padding: 40px 0;
+    padding: 40px calc((100% - 1200px) / 2);
+    /* 左右与版心 1200px 对齐 */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 100%;
-    margin: 0 auto;
-    padding-left: calc((100% - 1170px) / 2);
-    /* 保持内容与 1200px 版心对齐 */
-    padding-right: calc((100% - 1170px) / 2);
   }
 
   .footer p {
