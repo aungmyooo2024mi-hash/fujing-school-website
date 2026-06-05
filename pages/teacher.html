@@ -28,6 +28,56 @@
       gap: 40px;
     }
 
+    /* 🌟 新增：标题与“查看全部”的 Flex 弹性布局容器 */
+    .section-header-flex {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-end;
+      /* 底部对齐，视觉更平稳 */
+      border-bottom: 2px solid #eef2f5;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    /* 重置并精简原本的标题样式，防止横线产生冲突 */
+    .section-header-flex .section-title {
+      margin-bottom: 0;
+      text-align: left;
+    }
+
+    .section-header-flex .section-title h2 {
+      margin: 0;
+      font-size: 20px;
+      color: var(--primary-color);
+    }
+
+    /* 🌟 新增：右侧“查看全校教师”的精致浅色链接样式 */
+    .more-teachers-link {
+      font-size: 13.5px;
+      color: #7f8c8d;
+      /* 优雅的浅灰色 */
+      text-decoration: none;
+      transition: color 0.3s, transform 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background-color: #ffffff;
+      /* 浅白色背景底衬 */
+      border: 1px solid #e0e6ed;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    }
+
+    .more-teachers-link:hover {
+      color: var(--primary-color);
+      /* 悬浮时变成学校主色调 */
+      border-color: var(--primary-color);
+      transform: translateX(2px);
+      /* 悬浮时微动效果 */
+    }
+
     /* 1. 名师风采网格卡片 */
     .teacher-grid {
       display: grid;
@@ -201,6 +251,20 @@
         margin-top: 0;
       }
     }
+
+    /* 额外针对小手机的微调，防止标题和按钮挤在一起 */
+    @media (max-width: 480px) {
+      .section-header-flex {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .more-teachers-link {
+        align-self: flex-end;
+        /* 手机上让按钮靠右对齐 */
+      }
+    }
   </style>
 </head>
 
@@ -245,12 +309,18 @@
 
         <!-- 模块一：名师风采展示 -->
         <section>
-          <div class="section-title">
-            <h2>名师风采 / Faculty Show</h2>
-            <span class="line"></span>
+          <!-- 🌟 优化：使用了弹性通栏组合，将标题与右侧查看链接并排 -->
+          <div class="section-header-flex">
+            <div class="section-title">
+              <h2>名师风采 / Faculty Show</h2>
+            </div>
+            <!-- 💡 浅色查看全校教师链接点（未来可以新建一个 all-teachers.html 页面进行绑定） -->
+            <a href="all-teachers.html" class="more-teachers-link">
+              查看全校教师 <span>➔</span>
+            </a>
           </div>
-          <div class="teacher-grid">
 
+          <div class="teacher-grid">
             <!-- 老师卡片 1（高中部名师） -->
             <div class="teacher-card">
               <img src="../image/45a2c44216f7de784ade62aa60292dd7.jpg" alt="教师头像" class="teacher-avatar">
@@ -300,7 +370,6 @@
                 <p class="teacher-desc">精通中缅双语，专门负责外籍学生以及高年级缅文语法、文化课程的衔接教学。</p>
               </div>
             </div>
-
           </div>
         </section>
 
@@ -315,8 +384,7 @@
           </p>
 
           <div class="job-list">
-
-            <!-- 🌟 新增：职位 1（专门针对高中部老师招聘） -->
+            <!-- 职位 1 -->
             <div class="job-item job-highlight">
               <div class="job-header">
                 <span class="job-title">✨ 高中部华文专职教师 (2名) - 【热招岗位】</span>
@@ -336,7 +404,7 @@
               </div>
               <div class="job-detail">
                 <p><strong>岗位职责：</strong>负责中小学对应年级的华文基础课程、趣味听说以及中华传统文化课程的教学与班级日常管理。</p>
-                <p><strong>任职要求：</strong>大专及以上学历，中文流利，普通话标准，富有亲和力，有相关学校基础华文教学经验者优先。</p>
+                <p><strong>任职要求：</strong>高中学历，中文流利，普通话标准，富有亲和力，有相关学校基础华文教学经验者优先。</p>
               </div>
             </div>
 
@@ -344,14 +412,13 @@
             <div class="job-item">
               <div class="job-header">
                 <span class="job-title">💡 幼儿部华文启蒙教师 (2名)</span>
-                <span class="job-salary">💰 待遇：面议 / 提供食宿 + 节假日福利</span>
+                <span class="job-salary">💰 待遇：面议 / 节假日福利</span>
               </div>
               <div class="job-detail">
                 <p><strong>岗位职责：</strong>负责幼儿小班、中班、大班趣味拼音、儿歌、看图说话等基本启蒙教学。</p>
-                <p><strong>任职要求：</strong>极具亲和力、耐心与责任心，喜欢孩子，具有幼教或艺术特长者优先。</p>
+                <p><strong>任职要求：</strong>高中学历，极具亲和力、耐心与责任心，喜欢孩子，具有幼教或艺术特长者优先。</p>
               </div>
             </div>
-
           </div>
 
           <!-- 投递简历指南 -->

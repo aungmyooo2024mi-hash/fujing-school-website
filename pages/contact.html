@@ -12,21 +12,50 @@
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/common.css">
   <style>
-    /* 针对联系我们页面的局部精致微调（不污染 common.css） */
+    /* ==========================================================================
+       针对联系我们页面的局部精致微调（不污染 common.css）
+       ========================================================================== */
     .contact-wrapper {
       background-color: var(--bg-light);
-      padding: 40px 0;
+      padding: 40px 16px;
+    }
+
+    .contact-main-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      /* 手机端单列纵向堆叠 */
+      gap: 30px;
+    }
+
+    /* 左侧/上方的基础卡片通用视觉 */
+    .info-card,
+    .form-card,
+    .map-card {
+      background: #ffffff;
+      padding: 26px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
     }
 
     .info-card {
-      background: #ffffff;
-      padding: 30px 24px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
       border-top: 4px solid var(--secondary-color);
     }
 
-    .info-card h3 {
+    .form-card {
+      border-top: 4px solid var(--primary-color);
+    }
+
+    /* 🌟 新增：地图卡片顶部装饰条 */
+    .map-card {
+      border-top: 4px solid #30ccc1;
+      text-align: left;
+    }
+
+    .info-card h3,
+    .form-card h3,
+    .map-card h3 {
       color: var(--primary-color);
       margin-bottom: 20px;
       font-size: 18px;
@@ -34,10 +63,12 @@
       padding-bottom: 10px;
     }
 
+    /* 快捷通道列表项 */
     .info-link-item {
-      margin-bottom: 15px;
+      margin-bottom: 18px;
       font-size: 14.5px;
       color: var(--text-main);
+      text-align: left;
     }
 
     .info-link-item strong {
@@ -48,26 +79,11 @@
       display: block;
       color: var(--text-muted);
       font-size: 13px;
-      margin-top: 2px;
+      margin-top: 3px;
+      line-height: 1.4;
     }
 
-    /* 留言表单样式 */
-    .form-card {
-      background: #ffffff;
-      padding: 30px 24px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-      border-top: 4px solid var(--primary-color);
-    }
-
-    .form-card h3 {
-      color: var(--primary-color);
-      margin-bottom: 20px;
-      font-size: 18px;
-      border-bottom: 1px solid var(--bg-light);
-      padding-bottom: 10px;
-    }
-
+    /* 留言表单系统 */
     .form-group {
       margin-bottom: 16px;
       text-align: left;
@@ -89,7 +105,7 @@
       border-radius: 4px;
       font-size: 14px;
       background-color: var(--bg-light);
-      transition: border-color 0.3s;
+      transition: border-color 0.3s, background-color 0.3s;
     }
 
     .form-group input:focus,
@@ -104,7 +120,7 @@
       background-color: var(--primary-color);
       color: #ffffff;
       border: none;
-      padding: 12px;
+      padding: 13px;
       border-radius: 4px;
       font-size: 15px;
       font-weight: bold;
@@ -116,20 +132,63 @@
       background-color: #14385c;
     }
 
-    @media (min-width: 768px) {
+    /* 🌟 新增：电子地图容器占位视觉 */
+    .map-embed-container {
+      width: 100%;
+      height: 260px;
+      background-color: #f0f3f6;
+      border: 1px dashed #ccd4db;
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #7f8c8d;
+      font-size: 14px;
+      margin-top: 12px;
+    }
+
+    .map-icon-placeholder {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    /* ==========================================================================
+       PC端大屏高级自适应扩展 (> 992px)
+       ========================================================================== */
+    @media (min-width: 992px) {
       .contact-wrapper {
         padding: 60px 0;
       }
 
       .info-card,
-      .form-card {
-        padding: 40px;
+      .form-card,
+      .map-card {
+        padding: 35px;
+      }
+
+      /* PC端划分为复杂的混合三栏网格：左边联络、中间表单、右边地图占满 */
+      .contact-main-grid {
+        grid-template-columns: 1fr 1fr;
+        /* 先平分左右两列 */
+        gap: 30px;
+      }
+
+      /* 让地图卡片横向跨越 2 列，优雅置底通栏展示 */
+      .map-card {
+        grid-column: span 2;
+      }
+
+      .map-embed-container {
+        height: 380px;
+        /* 大屏下地图更加宽广辽阔 */
       }
     }
   </style>
 </head>
 
 <body>
+  <!-- 顶部导航 -->
   <header class="mobile-header">
     <div class="logo">
       <img src="../image/45a2c44216f7de784ade62aa60292dd7.jpg" alt="校徽">
@@ -152,8 +211,10 @@
     </nav>
   </header>
 
+  <!-- 主体部分 -->
   <main class="main-about">
 
+    <!-- 顶部Hero横幅 -->
     <section class="about-hero">
       <div class="hero-overlay">
         <h1>联系我们</h1>
@@ -161,54 +222,77 @@
       </div>
     </section>
 
+    <!-- 联系我们核心排版区 -->
     <div class="contact-wrapper">
-      <div class="about-container">
-        <div class="grid-2col">
+      <div class="contact-main-grid">
 
-          <div class="info-card">
-            <h3>💬 快捷咨询通道</h3>
+        <!-- 栏目一：快捷咨询通道（含核心地址与办公数据） -->
+        <div class="info-card">
+          <h3>💬 快捷咨询通道</h3>
 
-            <div class="info-link-item">
-              <strong>👥 招生办联络（微信同号）：</strong>
-              <span>+95 9-xxxxxxxxx (主要负责新生报名及学费咨询)</span>
-            </div>
-
-            <div class="info-link-item">
-              <strong>👥 教务处联络（师资应聘）：</strong>
-              <span>+95 9-xxxxxxxxx (主要负责教师招聘及课程合作)</span>
-            </div>
-
-            <div class="info-link-item">
-              <strong>📅 学校接待时间：</strong>
-              <span>周一至周五：08:00 - 16:30</span>
-              <span>周六上午：08:30 - 11:30</span>
-            </div>
+          <div class="info-link-item">
+            <strong>📍 学校官方地址 / Campus Address：</strong>
+            <span>缅甸 曼德勒省 彬乌伦 (Pyin Oo Lwin, Mandalay Region, Myanmar)</span>
           </div>
 
-          <div class="form-card">
-            <h3>✉️ 在线留言反馈</h3>
-            <form action="#" method="POST" onsubmit="alert('咨询信息已提交，我们会尽快回复您！'); return false;">
-              <div class="form-group">
-                <label for="username">您的姓名 / Name *</label>
-                <input type="text" id="username" placeholder="请输入您的姓名" required>
-              </div>
-              <div class="form-group">
-                <label for="usertel">联络电话或者微信 / Phone or WeChat *</label>
-                <input type="text" id="usertel" placeholder="方便招生办老师回访" required>
-              </div>
-              <div class="form-group">
-                <label for="usercontent">咨询内容 / Message *</label>
-                <textarea id="usercontent" rows="4" placeholder="请简要填写您想咨询或反馈的信息..." required></textarea>
-              </div>
-              <button type="submit" class="submit-btn">提交咨询信息</button>
-            </form>
+          <div class="info-link-item">
+            <strong>👥 招生办联络（微信同号）：</strong>
+            <span>+95 9-xxxxxxxxx (主要负责新生报名、高中/加强班学费咨询)</span>
           </div>
 
+          <div class="info-link-item">
+            <strong>👥 教务处联络（师资应聘）：</strong>
+            <span>+95 9-xxxxxxxxx (主要负责教师招聘及教学课程合作)</span>
+          </div>
+
+          <div class="info-link-item">
+            <strong>📅 学校接待与办公时间：</strong>
+            <span>周一至周五：08:00 - 16:30</span>
+            <span>周六上午：08:30 - 11:30 (周日及常规法定节假日休息)</span>
+          </div>
         </div>
+
+        <!-- 栏目二：在线留言反馈表单 -->
+        <div class="form-card">
+          <h3>✉️ 在线留言反馈</h3>
+          <form action="#" method="POST" onsubmit="alert('咨询信息已提交，我们会尽快回复您！'); return false;">
+            <div class="form-group">
+              <label for="username">您的姓名 / Name *</label>
+              <input type="text" id="username" placeholder="请输入您的姓名" required>
+            </div>
+            <div class="form-group">
+              <label for="usertel">联络电话或者微信 / Phone or WeChat *</label>
+              <input type="text" id="usertel" placeholder="方便招生办老师后续精准回访" required>
+            </div>
+            <div class="form-group">
+              <label for="usercontent">咨询内容 / Message *</label>
+              <textarea id="usercontent" rows="4" placeholder="请简要填写您想咨询、应聘或者反馈的信息..." required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">提交咨询信息</button>
+          </form>
+        </div>
+
+        <!-- 🌟 栏目三：新增学校地理位置地图卡片（预留空置占位） -->
+        <div class="map-card">
+          <h3>🗺️ 校园地理位置 / School Location</h3>
+          <p style="font-size: 13.5px; color: var(--text-main); line-height: 1.5;">
+            学校位于风景秀丽的彬乌伦。家长与应聘教师可对照下方电子地图导向指引，或提前拨打招生办电话预约到校参观测验。
+          </p>
+
+          <!-- 地图实体展位容器 -->
+          <div class="map-embed-container">
+            <!-- 💡后期拿到地图代码（如谷歌地图网格代码 iframe），直接删掉内部这俩span，把代码贴在下面即可 -->
+            <span class="map-icon-placeholder">📍</span>
+            <span>【学校电子地图高精数据正在筹备对接中，暂留空置】</span>
+            <span style="font-size: 11px; margin-top: 4px; color: #b2bec3;">有了地图嵌入代码后覆盖此区域即可实现全动态导航</span>
+          </div>
+        </div>
+
       </div>
     </div>
   </main>
 
+  <!-- 底部页脚 -->
   <footer class="footer">
     <div class="footer-content">
       <div class="footer-info">
