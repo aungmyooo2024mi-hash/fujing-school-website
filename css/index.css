@@ -12,11 +12,13 @@
   /* 次文字灰 */
   --bg-light: #F4F6F9;
   /* 浅灰底衬 */
+  --bg-dark: #051626;
+  /* 页脚深色背景 */
   --transition-speed: 0.3s;
   /* 全局柔和过渡速度 */
 }
 
-/* 全局初始化，确保彻底消除任何死角白边 */
+/* 全局初始化 */
 * {
   margin: 0;
   padding: 0;
@@ -27,13 +29,69 @@ body {
   color: var(--text-main);
   background-color: #ffffff;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  line-height: 1.6;
 }
+
+/* 统一公共板块标题样式 */
+.section-title {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.section-title h2 {
+  font-size: 22px;
+  color: var(--primary-color);
+  position: relative;
+  display: inline-block;
+}
+
+.section-title h2::after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 3px;
+  background-color: var(--secondary-color);
+  margin: 8px auto 0;
+}
+
+.section-title p {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+/* 统一“查看更多”头部组合 */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--bg-light);
+  padding-bottom: 10px;
+}
+
+.section-header h2 {
+  font-size: 20px;
+  color: var(--primary-color);
+}
+
+.section-header .more-btn {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--transition-speed);
+}
+
+.section-header .more-btn:hover {
+  color: var(--secondary-color);
+}
+
 
 /* ==========================================================================
    2. 手机端/移动端优先样式 (Mobile First Styles < 768px)
    ========================================================================== */
 
-/* 顶部导航栏包裹层 */
+/* 2.1 顶部导航栏包裹层 */
 .mobile-header {
   display: flex;
   justify-content: space-between;
@@ -93,7 +151,6 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* 当 JS 给 nav 加上 .active 类时显示 */
 .mobile-header .nav.active {
   display: block;
 }
@@ -113,18 +170,29 @@ body {
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+.mobile-header .nav ul li a.active {
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+
 .mobile-header .nav ul li a:hover {
   background-color: rgba(255, 255, 255, 0.1);
   color: var(--secondary-color);
 }
 
-/* 轮播Banner区 */
+/* 2.2 轮播Banner区 */
 .banner {
   position: relative;
   width: 100%;
   height: 210px;
   overflow: hidden;
   background-color: #000;
+}
+
+.banner-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
 .banner-slide {
@@ -148,31 +216,149 @@ body {
   opacity: 0.85;
 }
 
-/* 最新公告板块 */
+/* 轮播图控制组件 */
+.banner-prev,
+.banner-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  border: none;
+  padding: 10px 12px;
+  cursor: pointer;
+  font-size: 16px;
+  z-index: 10;
+  transition: background var(--transition-speed);
+}
+
+.banner-prev:hover,
+.banner-next:hover {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.banner-prev {
+  left: 10px;
+}
+
+.banner-next {
+  right: 10px;
+}
+
+.banner-dots {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.banner-dots .dot {
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.banner-dots .dot.active {
+  background: var(--secondary-color);
+  width: 20px;
+  border-radius: 4px;
+  transition: all var(--transition-speed);
+}
+
+/* 2.3 新增：办学特色 */
+.features {
+  padding: 40px 16px;
+  background-color: #ffffff;
+}
+
+.feature-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.feature-card {
+  text-align: center;
+  padding: 20px;
+  background: var(--bg-light);
+  border-radius: 8px;
+}
+
+.feature-card .icon-wrapper {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.feature-card h3 {
+  font-size: 18px;
+  color: var(--primary-color);
+  margin-bottom: 8px;
+}
+
+.feature-card p {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* 2.4 新增：快捷通道 */
+.quick-links {
+  padding: 24px 16px;
+  background-color: var(--primary-color);
+}
+
+.links-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.link-item {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #ffffff;
+  transition: background var(--transition-speed);
+}
+
+.link-item.highlight {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0.05) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.link-item .icon {
+  font-size: 28px;
+  margin-right: 16px;
+}
+
+.link-item h4 {
+  font-size: 16px;
+  margin-bottom: 4px;
+  color: #ffffff;
+}
+
+.link-item.highlight h4 {
+  color: var(--secondary-color);
+}
+
+.link-item p {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* 2.5 最新公告板块 */
 .news {
   padding: 40px 16px;
   background-color: var(--bg-light);
 }
 
-.news h2 {
-  font-size: 22px;
-  color: var(--primary-color);
-  text-align: center;
-  margin-bottom: 24px;
-  position: relative;
-}
-
-/* 标题下方的小金线 */
-.news h2::after {
-  content: "";
-  display: block;
-  width: 40px;
-  height: 3px;
-  background-color: var(--secondary-color);
-  margin: 8px auto 0;
-}
-
-/* 移动端卡片容器：保持垂直堆叠 */
 .card-container {
   display: flex;
   flex-direction: column;
@@ -182,40 +368,123 @@ body {
 .news .card {
   background-color: #ffffff;
   padding: 20px;
-  border-radius: 4px;
+  border-radius: 6px;
   border-left: 4px solid var(--primary-color);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-  transition: transform var(--transition-speed);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  position: relative;
 }
 
-.news .card h3 {
+.card .date {
+  font-size: 12px;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.card .card-tag {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 11px;
+  background: var(--bg-light);
+  color: var(--text-muted);
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+
+.card h3 {
   font-size: 16px;
   color: var(--text-main);
   margin-bottom: 8px;
+  padding-right: 40px;
+  /* 防止标题撞上标签 */
 }
 
-.news .card p {
+.card p {
   font-size: 14px;
   color: var(--text-muted);
   line-height: 1.5;
 }
 
-/* 页脚 */
+/* 2.6 新增：校园风采 */
+.gallery-preview {
+  padding: 40px 16px;
+  background-color: #ffffff;
+}
+
+.gallery-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.gallery-item {
+  position: relative;
+  height: 180px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery-item .overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+  color: #ffffff;
+  padding: 10px 16px;
+  font-size: 14px;
+}
+
+/* 2.7 富媒体页脚 */
 .footer {
-  background-color: #051626;
+  background-color: var(--bg-dark);
   color: rgba(255, 255, 255, 0.75);
-  padding: 30px 16px;
-  text-align: center;
+  padding: 32px 16px;
   font-size: 13px;
-  line-height: 1.8;
 }
 
-.footer p {
-  margin-bottom: 6px;
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 24px;
 }
 
-.footer p:last-child {
-  margin-bottom: 0;
+.footer-info p {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.footer-qrcode {
+  display: flex;
+  justify-content: center;
+}
+
+.qr-placeholder {
+  width: 100px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 16px;
 }
 
 
@@ -224,18 +493,27 @@ body {
    ========================================================================== */
 @media (min-width: 768px) {
 
-  /* 顶部导航外包裹大满栏：给一个精致的阴影和底色 */
+  /* 通用大屏版心自适应 */
+  .mobile-header,
+  .features,
+  .quick-links,
+  .news,
+  .gallery-preview,
+  .footer {
+    padding-left: calc((100% - 1200px) / 2);
+    padding-right: calc((100% - 1200px) / 2);
+  }
+
+  /* 3.1 导航栏 */
   .mobile-header {
-    padding: 0 calc((100% - 1200px) / 2);
-    /* 💡 完美解决电脑端两边太空的问题 */
     height: 90px;
     border-bottom: 1px solid #eef2f5;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
   }
 
   .mobile-header .logo img {
-    width: 50px;
-    height: 50px;
+    width: 52px;
+    height: 52px;
   }
 
   .mobile-header .school-name h1 {
@@ -246,12 +524,10 @@ body {
     font-size: 12px;
   }
 
-  /* 隐藏手机端汉堡菜单 */
   .menu-toggle {
     display: none;
   }
 
-  /* 恢复 PC 端横向导航条 */
   .mobile-header .nav {
     display: block !important;
     position: static;
@@ -263,7 +539,7 @@ body {
 
   .mobile-header .nav ul {
     flex-direction: row;
-    gap: 24px;
+    gap: 28px;
   }
 
   .mobile-header .nav ul li a {
@@ -271,37 +547,90 @@ body {
     color: var(--text-main);
     font-size: 16px;
     font-weight: 500;
-    text-decoration: none;
     border-bottom: 3px solid transparent;
     transition: color var(--transition-speed), border-color var(--transition-speed);
   }
 
-  /* PC 端 Hover 效果 */
   .mobile-header .nav ul li a:hover {
     background: none;
     color: var(--primary-color);
     border-bottom-color: var(--secondary-color);
   }
 
-  /* PC 端轮播图加大 */
+  /* 3.2 轮播图高度放大 */
   .banner {
-    height: 480px;
+    height: 460px;
   }
 
-  /* PC 端最新公告版心 */
-  .news {
-    max-width: 1200px;
-    margin: 0 auto;
-    background-color: #ffffff;
-    padding: 60px 15px;
+  .banner-prev {
+    left: calc((100% - 1160px) / 2);
   }
 
-  .news h2 {
-    font-size: 30px;
+  .banner-next {
+    right: calc((100% - 1160px) / 2);
+  }
+
+  /* 3.3 标题样式升级 */
+  .section-title {
     margin-bottom: 40px;
   }
 
-  /* 💡 核心修正：利用 Flexbox 完美实现三栏并排卡片，彻底废弃老旧的 float */
+  .section-title h2 {
+    font-size: 28px;
+  }
+
+  /* 3.4 办学特色：并排三栏布局 */
+  .features {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  .feature-container {
+    flex-direction: row;
+    gap: 24px;
+  }
+
+  .feature-card {
+    flex: 1;
+    padding: 32px 24px;
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+  }
+
+  .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  }
+
+  /* 3.5 快捷通道：并排三栏 */
+  .quick-links {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+
+  .links-container {
+    flex-direction: row;
+    gap: 24px;
+  }
+
+  .link-item {
+    flex: 1;
+    padding: 20px 24px;
+  }
+
+  .link-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  /* 3.6 最新公告：三栏卡片，改为精致的上边框线 */
+  .news {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  .section-header h2 {
+    font-size: 26px;
+  }
+
   .card-container {
     flex-direction: row;
     gap: 24px;
@@ -309,30 +638,84 @@ body {
 
   .news .card {
     flex: 1;
-    /* 让三张卡片等宽平分空间 */
     border-left: none;
     border-top: 4px solid var(--primary-color);
-    /* PC端改为上边框，更大气 */
-    padding: 30px 24px;
-    background-color: var(--bg-light);
-    border-radius: 6px;
+    padding: 28px 24px;
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
   }
 
   .news .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
   }
 
-  /* PC 端页脚大通栏 */
+  /* 3.7 校园风采：高级 CSS Grid 网格格调 */
+  .gallery-preview {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .gallery-item {
+    height: 240px;
+    cursor: pointer;
+  }
+
+  .gallery-item img {
+    transition: transform 0.5s ease;
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.05);
+    /* 鼠标悬浮图片轻微放大 */
+  }
+
+  .gallery-item .overlay {
+    opacity: 0.9;
+    background: linear-gradient(transparent, rgba(10, 37, 64, 0.85));
+    /* 使用主色调作为遮罩 */
+  }
+
+  /* 3.8 复杂双向页脚（左右对齐） */
   .footer {
-    padding: 40px calc((100% - 1200px) / 2);
-    /* 左右与版心 1200px 对齐 */
-    display: flex;
+    padding-top: 50px;
+    padding-bottom: 20px;
+  }
+
+  .footer-content {
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 30px;
   }
 
-  .footer p {
+  .footer-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .footer-info p {
     margin-bottom: 0;
+  }
+
+  .footer-qrcode {
+    justify-content: flex-end;
+  }
+
+  .qr-placeholder {
+    width: 110px;
+    height: 110px;
+  }
+
+  .footer-bottom {
+    border-top: none;
+    padding-top: 0;
   }
 }

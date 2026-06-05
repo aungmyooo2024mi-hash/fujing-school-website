@@ -1,24 +1,144 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>学校风采</title>
+  <title>校园风采 - 彬乌伦佛经学校</title>
+  <meta name="description"
+    content="彬乌伦佛经学校官方网站提供2026学年最新华文教育课程、新生报名须知、师资招聘公告及校园风采展示。学校致力于弘扬中华文化，推动缅中双语教育，为学生打造优质的学习发展与成长环境。">
+  <meta name="keywords" content="彬乌伦佛经学校,缅甸华文学校,彬乌伦学校招生,缅甸中文培训,缅中双语学校">
   <link rel="shortcut icon" href="../image/45a2c44216f7de784ade62aa60292dd7.jpg" type="image/x-icon">
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/common.css">
   <style>
-    .main {
-      text-align: center;
-      flex: 1;
-      padding: 20px;
+    /* ==========================================================================
+       针对校园风采画廊页面的专属自适应样式（不污染 common.css）
+       ========================================================================== */
+    .gallery-wrapper {
+      background-color: var(--bg-light);
+      padding: 40px 16px;
+    }
+
+    .gallery-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* 1. 分类过滤标签视觉（模拟现代画廊功能） */
+    .gallery-filter {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .filter-btn {
+      background-color: #ffffff;
+      color: var(--text-main);
+      border: 1px solid #ddd;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background-color: var(--primary-color);
+      color: #ffffff;
+      border-color: var(--primary-color);
+    }
+
+    /* 2. 瀑布流/网格画廊布局 */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      /* 手机端单列 */
+      gap: 20px;
+    }
+
+    .gallery-item {
+      background: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    /* 图片容器与悬停放大效果 */
+    .img-box {
+      width: 100%;
+      height: 220px;
+      overflow: hidden;
+      background-color: #eee;
+      position: relative;
+    }
+
+    .img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover .img-box img {
+      transform: scale(1.08);
+      /* 悬停时图片微微放大 */
+    }
+
+    /* 图片下方的精致文字标签 */
+    .img-info {
+      padding: 15px;
+      text-align: left;
+    }
+
+    .img-info h3 {
+      font-size: 15px;
+      color: var(--primary-color);
+      margin-bottom: 4px;
+    }
+
+    .img-info p {
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       PC端大屏自适应升级 (> 768px)
+       ========================================================================== */
+    @media (min-width: 768px) {
+      .gallery-wrapper {
+        padding: 60px 0;
+      }
+
+      .gallery-filter {
+        margin-bottom: 40px;
+        gap: 15px;
+      }
+
+      /* PC端自动变为 3 列网格排版 */
+      .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+      }
+
+      .img-box {
+        height: 240px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <!-- 顶部 -->
+  <!-- 顶部导航 -->
   <header class="mobile-header">
     <div class="logo">
       <img src="../image/45a2c44216f7de784ade62aa60292dd7.jpg" alt="校徽">
@@ -33,30 +153,131 @@
         <li><a href="../index.html">首页</a></li>
         <li><a href="about.html">学校简介</a></li>
         <li><a href="news.html">新闻公告</a></li>
-        <li><a href="teacher.html">师资招聘</a></li>
+        <li><a href="teacher.html">教师资源</a></li>
         <li><a href="student.html">新生报名</a></li>
-        <li><a href="style.html">校园风采</a></li>
+        <li><a href="style.html" class="active">校园风采</a></li>
         <li><a href="contact.html">联系我们</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- 主题 -->
-  <main class="main">
-    <!-- 标题 -->
-    <h1>关于本校</h1>
-    <!-- 内容 -->
-    <div class="content-box">
-      资料待补充，后期填写学校环境
+  <!-- 主体内容区（复用 main-about 以确保页脚弹性置底逻辑） -->
+  <main class="main-about">
+
+    <!-- 顶部横幅 -->
+    <section class="about-hero">
+      <div class="hero-overlay">
+        <h1>校园风采</h1>
+        <p>定格美好瞬间，展现彬乌伦佛经学校的生机与活力</p>
+      </div>
+    </section>
+
+    <!-- 画廊主体区 -->
+    <div class="gallery-wrapper">
+      <div class="gallery-container">
+
+        <!-- 分类切换按钮组（后期可结合JS做图片联动过滤） -->
+        <div class="gallery-filter">
+          <button class="filter-btn active">全部图片</button>
+          <button class="filter-btn">校园环境</button>
+          <button class="filter-btn">教学设施</button>
+          <button class="filter-btn">精彩活动</button>
+        </div>
+
+        <!-- 图片网格系统 -->
+        <div class="gallery-grid">
+
+          <!-- 照片卡片 1 -->
+          <div class="gallery-item">
+            <div class="img-box">
+              <!-- 💡 后期可以把 src 换成学校大门或主教学楼的真实照片 -->
+              <img src="../image/dbdea1b6933329fa467aacdf55b439de.jpg" alt="校园环境">
+            </div>
+            <div class="img-info">
+              <h3>学校主教学楼</h3>
+              <p>📍 分类：校园环境 / 现代化教学主楼</p>
+            </div>
+          </div>
+
+          <!-- 照片卡片 2 -->
+          <div class="gallery-item">
+            <div class="img-box">
+              <img src="../image/dbdea1b6933329fa467aacdf55b439de.jpg" alt="多媒体教室">
+            </div>
+            <div class="img-info">
+              <h3>多媒体华文机房</h3>
+              <p>📍 分类：教学设施 / 电脑互动双语设备</p>
+            </div>
+          </div>
+
+          <!-- 照片卡片 3 -->
+          <div class="gallery-item">
+            <div class="img-box">
+              <img src="../image/dbdea1b6933329fa467aacdf55b439de.jpg" alt="学校图书馆">
+            </div>
+            <div class="img-info">
+              <h3>中华文化图书阅览室</h3>
+              <p>📍 分类：教学设施 / 丰富的中文藏书</p>
+            </div>
+          </div>
+
+          <!-- 照片卡片 4 -->
+          <div class="gallery-item">
+            <div class="img-box">
+              <img src="../image/dbdea1b6933329fa467aacdf55b439de.jpg" alt="泼水节活动">
+            </div>
+            <div class="img-info">
+              <h3>中缅双语泼水节联欢</h3>
+              <p>📍 分类：精彩活动 / 传统文化体验</p>
+            </div>
+          </div>
+
+          <!-- 照片卡片 5 -->
+          <div class="gallery-item">
+            <div class="img-box">
+              <img src="../image/dbdea1b6933329fa467aacdf55b439de.jpg" alt="课堂互动">
+            </div>
+            <div class="img-info">
+              <h3>趣味华文互动课堂</h3>
+              <p>📍 分类：精彩活动 / 沉浸式中文授课</p>
+            </div>
+          </div>
+
+          <!-- 照片卡片 6 -->
+          <div class="gallery-item">
+            <div class="img-box">
+              <img src="../image/dbdea1b6933329fa467aacdf55b439de.jpg" alt="体育活动">
+            </div>
+            <div class="img-info">
+              <h3>第二课堂 - 乒乓球兴趣小组</h3>
+              <p>📍 分类：精彩活动 / 强身健体，全面发展</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
   </main>
 
-  <!-- 底部 -->
+  <!-- 底部页脚 -->
   <footer class="footer">
-    <p>地址：缅甸彬乌伦</p>
-    <p>© 2026 彬乌伦佛经学校 版权所有 | 缅中双语版权</p>
-    <p>联系方式：123-456-789</p>
+    <div class="footer-content">
+      <div class="footer-info">
+        <p><strong>📍 学校地址：</strong>缅甸 曼德勒省 彬乌伦 (Pyin Oo Lwin, Myanmar)</p>
+        <p><strong>📞 联系电话：</strong>123-456-789 / +95 xxxxxxxx</p>
+        <p><strong>✉️ 官方邮箱：</strong>contact@poldfjbs.edu.mm</p>
+      </div>
+      <div class="footer-qrcode">
+        <div class="qr-placeholder">
+          <span>微信公众号<br>二维码</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 彬乌伦佛经学校 版权所有 | 缅中双语教学体系</p>
+    </div>
   </footer>
+
   <script src="../js/common.js"></script>
 </body>
 

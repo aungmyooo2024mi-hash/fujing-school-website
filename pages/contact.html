@@ -1,24 +1,135 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>联系我们</title>
+  <title>联系我们 - 彬乌伦佛经学校</title>
+  <meta name="description"
+    content="彬乌伦佛经学校官方网站提供2026学年最新华文教育课程、新生报名须知、师资招聘公告及校园风采展示。学校致力于弘扬中华文化，推动缅中双语教育，为学生打造优质的学习发展与成长环境。">
+  <meta name="keywords" content="彬乌伦佛经学校,缅甸华文学校,彬乌伦学校招生,缅甸中文培训,缅中双语学校">
   <link rel="shortcut icon" href="../image/45a2c44216f7de784ade62aa60292dd7.jpg" type="image/x-icon">
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/common.css">
   <style>
-    .main {
-      text-align: center;
-      flex: 1;
-      padding: 20px;
+    /* 针对联系我们页面的局部精致微调（不污染 common.css） */
+    .contact-wrapper {
+      background-color: var(--bg-light);
+      padding: 40px 0;
+    }
+
+    .info-card {
+      background: #ffffff;
+      padding: 30px 24px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+      border-top: 4px solid var(--secondary-color);
+    }
+
+    .info-card h3 {
+      color: var(--primary-color);
+      margin-bottom: 20px;
+      font-size: 18px;
+      border-bottom: 1px solid var(--bg-light);
+      padding-bottom: 10px;
+    }
+
+    .info-link-item {
+      margin-bottom: 15px;
+      font-size: 14.5px;
+      color: var(--text-main);
+    }
+
+    .info-link-item strong {
+      color: var(--primary-color);
+    }
+
+    .info-link-item span {
+      display: block;
+      color: var(--text-muted);
+      font-size: 13px;
+      margin-top: 2px;
+    }
+
+    /* 留言表单样式 */
+    .form-card {
+      background: #ffffff;
+      padding: 30px 24px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+      border-top: 4px solid var(--primary-color);
+    }
+
+    .form-card h3 {
+      color: var(--primary-color);
+      margin-bottom: 20px;
+      font-size: 18px;
+      border-bottom: 1px solid var(--bg-light);
+      padding-bottom: 10px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13.5px;
+      color: var(--text-main);
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      background-color: var(--bg-light);
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      background-color: #fff;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background-color: var(--primary-color);
+      color: #ffffff;
+      border: none;
+      padding: 12px;
+      border-radius: 4px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .submit-btn:hover {
+      background-color: #14385c;
+    }
+
+    @media (min-width: 768px) {
+      .contact-wrapper {
+        padding: 60px 0;
+      }
+
+      .info-card,
+      .form-card {
+        padding: 40px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <!-- 顶部 -->
   <header class="mobile-header">
     <div class="logo">
       <img src="../image/45a2c44216f7de784ade62aa60292dd7.jpg" alt="校徽">
@@ -33,30 +144,89 @@
         <li><a href="../index.html">首页</a></li>
         <li><a href="about.html">学校简介</a></li>
         <li><a href="news.html">新闻公告</a></li>
-        <li><a href="teacher.html">师资招聘</a></li>
+        <li><a href="teacher.html">教师资源</a></li>
         <li><a href="student.html">新生报名</a></li>
         <li><a href="style.html">校园风采</a></li>
-        <li><a href="contact.html">联系我们</a></li>
+        <li><a href="contact.html" class="active">联系我们</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- 主题 -->
-  <main class="main">
-    <!-- 标题 -->
-    <h1>关于本校</h1>
-    <!-- 内容 -->
-    <div class="content-box">
-      资料待补充，后期填写
+  <main class="main-about">
+
+    <section class="about-hero">
+      <div class="hero-overlay">
+        <h1>联系我们</h1>
+        <p>如有任何疑问，欢迎通过以下方式与我们取得联系</p>
+      </div>
+    </section>
+
+    <div class="contact-wrapper">
+      <div class="about-container">
+        <div class="grid-2col">
+
+          <div class="info-card">
+            <h3>💬 快捷咨询通道</h3>
+
+            <div class="info-link-item">
+              <strong>👥 招生办联络（微信同号）：</strong>
+              <span>+95 9-xxxxxxxxx (主要负责新生报名及学费咨询)</span>
+            </div>
+
+            <div class="info-link-item">
+              <strong>👥 教务处联络（师资应聘）：</strong>
+              <span>+95 9-xxxxxxxxx (主要负责教师招聘及课程合作)</span>
+            </div>
+
+            <div class="info-link-item">
+              <strong>📅 学校接待时间：</strong>
+              <span>周一至周五：08:00 - 16:30</span>
+              <span>周六上午：08:30 - 11:30</span>
+            </div>
+          </div>
+
+          <div class="form-card">
+            <h3>✉️ 在线留言反馈</h3>
+            <form action="#" method="POST" onsubmit="alert('咨询信息已提交，我们会尽快回复您！'); return false;">
+              <div class="form-group">
+                <label for="username">您的姓名 / Name *</label>
+                <input type="text" id="username" placeholder="请输入您的姓名" required>
+              </div>
+              <div class="form-group">
+                <label for="usertel">联络电话或者微信 / Phone or WeChat *</label>
+                <input type="text" id="usertel" placeholder="方便招生办老师回访" required>
+              </div>
+              <div class="form-group">
+                <label for="usercontent">咨询内容 / Message *</label>
+                <textarea id="usercontent" rows="4" placeholder="请简要填写您想咨询或反馈的信息..." required></textarea>
+              </div>
+              <button type="submit" class="submit-btn">提交咨询信息</button>
+            </form>
+          </div>
+
+        </div>
+      </div>
     </div>
   </main>
 
-  <!-- 底部 -->
   <footer class="footer">
-    <p>地址：缅甸彬乌伦</p>
-    <p>© 2026 彬乌伦佛经学校 版权所有 | 缅中双语版权</p>
-    <p>联系方式：123-456-789</p>
+    <div class="footer-content">
+      <div class="footer-info">
+        <p><strong>📍 学校地址：</strong>缅甸 曼德勒省 彬乌伦 (Pyin Oo Lwin, Myanmar)</p>
+        <p><strong>📞 联系电话：</strong>123-456-789 / +95 xxxxxxxx</p>
+        <p><strong>✉️ 官方邮箱：</strong>contact@poldfjbs.edu.mm</p>
+      </div>
+      <div class="footer-qrcode">
+        <div class="qr-placeholder">
+          <span>微信公众号<br>二维码</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 彬乌伦佛经学校 版权所有 | 缅中双语教学体系</p>
+    </div>
   </footer>
+
   <script src="../js/common.js"></script>
 </body>
 

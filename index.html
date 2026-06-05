@@ -14,22 +14,21 @@
 </head>
 
 <body>
-  <!-- 顶部 -->
   <header class="mobile-header">
     <div class="logo">
-      <img src="./image/45a2c44216f7de784ade62aa60292dd7.jpg" alt="校徽">
+      <img src="./image/45a2c44216f7de784ade62aa60292dd7.jpg" alt="彬乌伦佛经学校校徽">
       <div class="school-name">
         <h1>彬乌伦佛经学校</h1>
         <p>Pyin Oo Lwin Fujing Buddhist School</p>
       </div>
     </div>
-    <button class="menu-toggle">☰</button>
+    <button class="menu-toggle" aria-label="切换菜单">☰</button>
     <nav class="nav">
       <ul>
-        <li><a href="#">首页</a></li>
+        <li><a href="#" class="active">首页</a></li>
         <li><a href="./pages/about.html">学校简介</a></li>
         <li><a href="./pages/news.html">新闻公告</a></li>
-        <li><a href="./pages/teacher.html">师资招聘</a></li>
+        <li><a href="./pages/teacher.html">教师资源</a></li>
         <li><a href="./pages/student.html">新生报名</a></li>
         <li><a href="./pages/style.html">校园风采</a></li>
         <li><a href="./pages/contact.html">联系我们</a></li>
@@ -37,43 +36,141 @@
     </nav>
   </header>
 
-  <!-- 轮播Banner -->
-  <section class="banner">
-    <div class="banner-slide active">
-      <img src="./image/dbdea1b6933329fa467aacdf55b439de.jpg" alt="校园实景图">
+  <section class="banner" aria-label="校园焦点图">
+    <div class="banner-container">
+      <div class="banner-slide active">
+        <img src="./image/dbdea1b6933329fa467aacdf55b439de.jpg" alt="校园实景图">
+      </div>
+      <div class="banner-slide">
+        <img src="./image/45a2c44216f7de784ade62aa60292dd7.jpg" alt="2026学年招生公告">
+      </div>
+      <div class="banner-slide">
+        <img src="./image/0d7669887090d80ee53e7a0c15c85b5e.jpg" alt="新生报名通知">
+      </div>
     </div>
-    <div class="banner-slide">
-      <img src="./image/45a2c44216f7de784ade62aa60292dd7.jpg" alt="招生公告">
-    </div>
-    <div class="banner-slide">
-      <img src="./image/0d7669887090d80ee53e7a0c15c85b5e.jpg" alt="报名通知">
+    <button class="banner-prev" aria-label="上一张">❮</button>
+    <button class="banner-next" aria-label="下一张">❯</button>
+    <div class="banner-dots">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
     </div>
   </section>
 
-  <!-- 公告卡片 -->
+  <section class="features">
+    <div class="section-title">
+      <h2>办学特色</h2>
+      <p>传承中华文化，开启双语未来</p>
+    </div>
+    <div class="feature-container">
+      <div class="feature-card">
+        <div class="icon-wrapper">📖</div>
+        <h3>优质华文教育</h3>
+        <p>系统化正规中文课程，全面提升听、说、读、写能力，扎根中华文化。</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon-wrapper">🌍</div>
+        <h3>中缅双语环境</h3>
+        <p>紧密结合当地教育需求，打造高效双语切换能力，培养复合型人才。</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon-wrapper">🙏</div>
+        <h3>德育智育并重</h3>
+        <p>融合传统美德与感恩教育，关注身心健康，引导学生树立优良品格。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="quick-links">
+    <div class="links-container">
+      <a href="./pages/student.html" class="link-item highlight">
+        <span class="icon">🚀</span>
+        <div class="text">
+          <h4>2026 新生报名入口</h4>
+          <p>在线填写资料，快速完成报备</p>
+        </div>
+      </a>
+      <a href="./pages/teacher.html" class="link-item">
+        <span class="icon">💼</span>
+        <div class="text">
+          <h4>师资招聘表单</h4>
+          <p>加入优秀团队，共创华教未来</p>
+        </div>
+      </a>
+      <a href="./pages/contact.html" class="link-item">
+        <span class="icon">📍</span>
+        <div class="text">
+          <h4>校园来访导航</h4>
+          <p>获取学校电话、地址及地图指引</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
   <section class="news">
-    <h2>最新公告</h2>
+    <div class="section-header">
+      <h2>最新公告</h2>
+      <a href="./pages/news.html" class="more-btn">查看更多 →</a>
+    </div>
     <div class="card-container">
       <div class="card">
+        <div class="card-tag">招聘</div>
+        <span class="date">2026-06-01</span>
         <h3>师资招聘公告</h3>
-        <p>招聘优秀教师，详情请查看公众号。</p>
+        <p>学校现面向社会招聘优秀华文教师，详情请查看官方微信公众号或联系教务处。</p>
       </div>
       <div class="card">
+        <div class="card-tag重要">招生</div>
+        <span class="date">2026-05-20</span>
         <h3>新生报名须知</h3>
-        <p>2026学年新生报名已开启，请及时提交资料。</p>
+        <p>2026学年度新学期招生工作已正式开启，请各位家长及时点击上方入口或到校提交资料。</p>
       </div>
       <div class="card">
+        <div class="card-tag">校园</div>
+        <span class="date">2026-05-15</span>
         <h3>校园活动通知</h3>
-        <p>近期将举办校园运动会，欢迎全校师生参与。</p>
+        <p>为丰富同学们的课余生活，近期学校将举办夏季校园运动会，欢迎全体师生积极参与。</p>
       </div>
     </div>
   </section>
 
-  <!-- 页脚 -->
+  <section class="gallery-preview">
+    <div class="section-header">
+      <h2>校园风采</h2>
+      <a href="./pages/style.html" class="more-btn">更多剪影 →</a>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="./image/dbdea1b6933329fa467aacdf55b439de.jpg" alt="学生课堂互动">
+        <div class="overlay"><span>书声琅琅</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="./image/45a2c44216f7de784ade62aa60292dd7.jpg" alt="校园文化活动">
+        <div class="overlay"><span>节日庆典</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="" alt="美丽校园一角">
+        <div class="overlay"><span>校园环境</span></div>
+      </div>
+    </div>
+  </section>
+
   <footer class="footer">
-    <p>地址：缅甸彬乌伦</p>
-    <p>© 2026 彬乌伦佛经学校 版权所有 | 缅中双语版权</p>
-    <p>联系方式：123-456-789</p>
+    <div class="footer-content">
+      <div class="footer-info">
+        <p><strong>📍 学校地址：</strong>缅甸 曼德勒省 彬乌伦 (Pyin Oo Lwin, Myanmar)</p>
+        <p><strong>📞 联系电话：</strong>123-456-789 / +95 xxxxxxxx</p>
+        <p><strong>✉️ 官方邮箱：</strong>contact@poldfjbs.edu.mm</p>
+      </div>
+      <div class="footer-qrcode">
+        <div class="qr-placeholder">
+          <span>微信公众号<br>二维码</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 彬乌伦佛经学校 版权所有 | 缅中双语教学体系</p>
+    </div>
   </footer>
 
   <script src="./js/index.js"></script>

@@ -1,24 +1,251 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>新生报名</title>
+  <title>新生报名 - 彬乌伦佛经学校</title>
+  <meta name="description"
+    content="彬乌伦佛经学校官方网站提供2026学年最新华文教育课程、新生报名须知、师资招聘公告及校园风采展示。学校致力于弘扬中华文化，推动缅中双语教育，为学生打造优质的学习发展与成长环境。">
+  <meta name="keywords" content="彬乌伦佛经学校,缅甸华文学校,彬乌伦学校招生,缅甸中文培训,缅中双语学校">
   <link rel="shortcut icon" href="../image/45a2c44216f7de784ade62aa60292dd7.jpg" type="image/x-icon">
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/common.css">
   <style>
-    .main {
+    /* ==========================================================================
+       针对新生报名与预约表单页面的专属自适应样式（不污染 common.css）
+       ========================================================================== */
+    .enroll-wrapper {
+      background-color: var(--bg-light);
+      padding: 40px 16px;
+    }
+
+    .enroll-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    /* 1. 招生简章表格样式 */
+    .info-box {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+      text-align: left;
+    }
+
+    .enroll-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .enroll-table th,
+    .enroll-table td {
+      border: 1px solid #eef2f5;
+      padding: 12px;
       text-align: center;
-      flex: 1;
+    }
+
+    .enroll-table th {
+      background-color: var(--primary-color);
+      color: #ffffff;
+    }
+
+    .enroll-table tr:nth-child(even) {
+      background-color: var(--bg-light);
+    }
+
+    /* 突出重点学部标签 */
+    .badge-special {
+      background-color: #E6F7FF;
+      color: #1890FF;
+      border: 1px solid #91D5FF;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+      display: inline-block;
+      margin-top: 4px;
+    }
+
+    /* 2. 报名流程步骤条样式 */
+    .step-container {
+      display: flex;
+      flex-direction: column;
+      /* 手机端垂直排列 */
+      gap: 20px;
+      margin-top: 15px;
+    }
+
+    .step-card {
+      background: #ffffff;
       padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      text-align: left;
+    }
+
+    .step-number {
+      background-color: var(--secondary-color);
+      color: var(--primary-color);
+      font-weight: bold;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-content h4 {
+      color: var(--primary-color);
+      margin-bottom: 5px;
+      font-size: 16px;
+    }
+
+    .step-content p {
+      font-size: 13.5px;
+      color: var(--text-muted);
+    }
+
+    /* 3. 预约报名表单样式 */
+    .form-box {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+      border-top: 4px solid var(--primary-color);
+    }
+
+    .enroll-form {
+      display: grid;
+      grid-template-columns: 1fr;
+      /* 手机端单列输入框 */
+      gap: 16px;
+      text-align: left;
+      margin-top: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group.full-width {
+      grid-column: span 1;
+    }
+
+    .form-group label {
+      font-size: 14px;
+      color: var(--text-main);
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      background-color: var(--bg-light);
+      transition: border-color 0.3s, background-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      background-color: #ffffff;
+    }
+
+    .submit-btn-container {
+      margin-top: 10px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background-color: var(--primary-color);
+      color: #ffffff;
+      border: none;
+      padding: 14px;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .submit-btn:hover {
+      background-color: #14385c;
+    }
+
+    /* ==========================================================================
+       PC端大屏自适应升级 (> 768px)
+       ========================================================================== */
+    @media (min-width: 768px) {
+      .enroll-wrapper {
+        padding: 60px 0;
+      }
+
+      .enroll-container {
+        gap: 50px;
+      }
+
+      .info-box,
+      .form-box {
+        padding: 40px;
+      }
+
+      /* 流程横向并排 */
+      .step-container {
+        flex-direction: row;
+        gap: 20px;
+      }
+
+      .step-card {
+        flex: 1;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      /* 表单网格双栏分列 */
+      .enroll-form {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+
+      .form-group.full-width {
+        grid-column: span 2;
+        /* 留言备考信息单独占满一行 */
+      }
+
+      .submit-btn {
+        width: 240px;
+        /* PC端按钮不盲目撑满 */
+      }
+
+      .submit-btn-container {
+        text-align: right;
+      }
     }
   </style>
 </head>
 
 <body>
-  <!-- 顶部 -->
+  <!-- 顶部导航 -->
   <header class="mobile-header">
     <div class="logo">
       <img src="../image/45a2c44216f7de784ade62aa60292dd7.jpg" alt="校徽">
@@ -33,30 +260,205 @@
         <li><a href="../index.html">首页</a></li>
         <li><a href="about.html">学校简介</a></li>
         <li><a href="news.html">新闻公告</a></li>
-        <li><a href="teacher.html">师资招聘</a></li>
-        <li><a href="student.html">新生报名</a></li>
+        <li><a href="teacher.html">教师资源</a></li>
+        <li><a href="student.html" class="active">新生报名</a></li>
         <li><a href="style.html">校园风采</a></li>
         <li><a href="contact.html">联系我们</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- 主题 -->
-  <main class="main">
-    <!-- 标题 -->
-    <h1>关于本校</h1>
-    <!-- 内容 -->
-    <div class="content-box">
-      资料待补充，后期填写学校新生报名程序
+  <!-- 主体内容区（复用 main-about 以确保页脚弹性置底逻辑） -->
+  <main class="main-about">
+
+    <!-- 顶部横幅 -->
+    <section class="about-hero">
+      <div class="hero-overlay">
+        <h1>新生报名</h1>
+        <p>欢迎报读彬乌伦佛经学校，携手共创双语辉煌明天</p>
+      </div>
+    </section>
+
+    <!-- 报名主要内容区 -->
+    <div class="enroll-wrapper">
+      <div class="enroll-container">
+
+        <!-- 模块一：招生简章简介 -->
+        <section class="info-box">
+          <div class="section-title">
+            <h2>招生简章 / Admission Prospectus</h2>
+            <span class="line"></span>
+          </div>
+          <p style="font-size: 15px; color: #444; line-height: 1.6; margin-bottom: 15px;">
+            我校2026学年度招生工作正式启动。学校设置有系统化的华文双语课程，诚邀符合条件的适龄学子报名入读。
+          </p>
+          <table class="enroll-table">
+            <thead>
+              <tr>
+                <th>学部</th>
+                <th>招收年级</th>
+                <th>招生对象及要求</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>幼儿部</strong></td>
+                <td>小班 / 中班 / 大班</td>
+                <td>年满 3-5 周岁，身心健康，具备基本沟通能力的适龄儿童。</td>
+              </tr>
+              <tr>
+                <td><strong>小学部</strong></td>
+                <td>一年级 至 六年级</td>
+                <td>招收幼儿部毕业生及各地区转学生，需参加基础中文水平测试。</td>
+              </tr>
+              <tr>
+                <td><strong>初中部</strong></td>
+                <td>初中一年级 至 三年级</td>
+                <td>招收高小毕业生，需具备相应的华文听、说、读、写基础。</td>
+              </tr>
+              <!-- 🌟 新增：高中部 -->
+              <tr>
+                <td><strong>高中部</strong></td>
+                <td>高中一年级 至 三年级</td>
+                <td>招收初中优秀毕业生，致力于培养精通中缅双语的高素质复合型人才。</td>
+              </tr>
+              <!-- 🌟 新增：华文加强班 -->
+              <tr>
+                <td><strong>加强班</strong></td>
+                <td>华文强化提高班<br><span class="badge-special">业余制</span></td>
+                <td>招收希望在短期内快速提升中文口语、阅读及商务汉水平的各年龄段学生。</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- 模块二：报名流程说明 -->
+        <section class="info-box">
+          <div class="section-title">
+            <h2>报名流程 / Application Process</h2>
+            <span class="line"></span>
+          </div>
+          <div class="step-container">
+            <div class="step-card">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                <h4>提交预约</h4>
+                <p>在本网页下方真实填写并提交“在线预约报名”申请表。</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                <h4>校方核验</h4>
+                <p>招生办老师将在 2 个工作日内电话或微信联系家长进行信息核实。</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-number">3</div>
+              <div class="step-content">
+                <h4>入学测评</h4>
+                <p>携带孩子及相关身份证明文件，前往学校参加中文双语能力评测。</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-number">4</div>
+              <div class="step-content">
+                <h4>缴费注册</h4>
+                <p>测评合格者在教务处办理正式交费领书及注册手续，成功录取。</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 模块三：在线预约报名表单 -->
+        <section class="form-box">
+          <div class="section-title">
+            <h2>在线预约报名登记表 / Online Registration</h2>
+            <span class="line"></span>
+          </div>
+
+          <form class="enroll-form" action="#" method="POST" onsubmit="alert('您的预约申请已收到！招生办老师将尽快与您联络。'); return false;">
+            <!-- 学生姓名 -->
+            <div class="form-group">
+              <label for="student_name">学生中文姓名 / Student Name *</label>
+              <input type="text" id="student_name" placeholder="请输入学生真实姓名" required>
+            </div>
+
+            <!-- 学生年龄 -->
+            <div class="form-group">
+              <label for="student_age">学生当前年龄 / Age *</label>
+              <input type="number" id="student_age" min="3" max="25" placeholder="请输入学生年龄" required>
+            </div>
+
+            <!-- 报读学部年级 -->
+            <div class="form-group">
+              <label for="enroll_grade">意向报读年级 / Intended Grade *</label>
+              <select id="enroll_grade" required>
+                <option value="">-- 请选择报读年级 --</option>
+                <option value="preschool">幼儿部（小/中/大班）</option>
+                <option value="primary_low">小学低年级（1-3年级）</option>
+                <option value="primary_high">小学高年级（4-6年级）</option>
+                <option value="junior_middle">初中部（7-9年级）</option>
+                <!-- 🌟 表单选项新增：高中部与加强班 -->
+                <option value="senior_high">高中部（10-12年级/高一至高三）</option>
+                <option value="intensive_class">华文加强班（业余强化学习）</option>
+              </select>
+            </div>
+
+            <!-- 家长联络电话 -->
+            <div class="form-group">
+              <label for="parent_phone">家长或本人联系电话 / Contact Phone *</label>
+              <input type="tel" id="parent_phone" placeholder="请输入方便回访的电话号码" required>
+            </div>
+
+            <!-- 家长微信/其他联络方式 -->
+            <div class="form-group">
+              <label for="parent_wechat">微信号或其他联络工具 / WeChat ID</label>
+              <input type="text" id="parent_wechat" placeholder="选填，方便海外线上联络沟通">
+            </div>
+
+            <!-- 现居住区域 -->
+            <div class="form-group">
+              <label for="live_area">当前现居地 / Current Address *</label>
+              <input type="text" id="live_area" placeholder="例如：彬乌伦市区 / 曼德勒" required>
+            </div>
+
+            <!-- 补充备注说明 -->
+            <div class="form-group full-width">
+              <label for="enroll_remark">补充备注（如：孩子中文基础情况、转学经历等说明）</label>
+              <textarea id="enroll_remark" rows="3" placeholder="如有其他特殊说明或需求，请在此留言告知校方..."></textarea>
+            </div>
+
+            <!-- 提交按钮 -->
+            <div class="form-group full-width submit-btn-container">
+              <button type="submit" class="submit-btn">提交预约申请 / Submit</button>
+            </div>
+          </form>
+        </section>
+
+      </div>
     </div>
   </main>
 
-  <!-- 底部 -->
+  <!-- 底部页脚 -->
   <footer class="footer">
-    <p>地址：缅甸彬乌伦</p>
-    <p>© 2026 彬乌伦佛经学校 版权所有 | 缅中双语版权</p>
-    <p>联系方式：123-456-789</p>
+    <div class="footer-content">
+      <div class="footer-info">
+        <p><strong>📍 学校地址：</strong>缅甸 曼德勒省 彬乌伦 (Pyin Oo Lwin, Myanmar)</p>
+        <p><strong>📞 联系电话：</strong>123-456-789 / +95 xxxxxxxx</p>
+        <p><strong>✉️ 官方邮箱：</strong>contact@poldfjbs.edu.mm</p>
+      </div>
+      <div class="footer-qrcode">
+        <div class="qr-placeholder">
+          <span>微信公众号<br>二维码</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 彬乌伦佛经学校 版权所有 | 缅中双语教学体系</p>
+    </div>
   </footer>
+
   <script src="../js/common.js"></script>
 </body>
 

@@ -1,24 +1,211 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>教师资源</title>
+  <title>教师资源与师资招聘 - 彬乌伦佛经学校</title>
+  <meta name="description"
+    content="彬乌伦佛经学校官方网站提供2026学年最新华文教育课程、新生报名须知、师资招聘公告及校园风采展示。学校致力于弘扬中华文化，推动缅中双语教育，为学生打造优质的学习发展与成长环境。">
+  <meta name="keywords" content="彬乌伦佛经学校,缅甸华文学校,彬乌伦学校招生,缅甸中文培训,缅中双语学校">
   <link rel="shortcut icon" href="../image/45a2c44216f7de784ade62aa60292dd7.jpg" type="image/x-icon">
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/common.css">
   <style>
-    .main {
+    /* ==========================================================================
+       针对教师资源与招聘页面的专属自适应样式（不污染 common.css）
+       ========================================================================== */
+    .teacher-wrapper {
+      background-color: var(--bg-light);
+      padding: 40px 16px;
+    }
+
+    .teacher-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    /* 1. 名师风采网格卡片 */
+    .teacher-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      /* 手机端单列 */
+      gap: 20px;
+      margin-top: 15px;
+    }
+
+    .teacher-card {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       text-align: center;
-      flex: 1;
-      padding: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .teacher-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .teacher-avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #eef2f5;
+      margin-bottom: 12px;
+      background-color: #eee;
+    }
+
+    .teacher-info h3 {
+      font-size: 16px;
+      color: var(--primary-color);
+      margin-bottom: 4px;
+    }
+
+    .teacher-tag {
+      background-color: #FFFBE6;
+      color: #D4AF37;
+      border: 1px solid #FFE58F;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    /* 高中部老师采用醒目的专属布局 */
+    .teacher-tag.tag-high {
+      background-color: #E6F7FF;
+      color: #1890FF;
+      border: 1px solid #91D5FF;
+    }
+
+    .teacher-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* 2. 招聘岗位列表 */
+    .job-box {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+      text-align: left;
+    }
+
+    .job-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .job-item {
+      border: 1px solid #eef2f5;
+      border-radius: 6px;
+      padding: 16px;
+      background-color: var(--bg-light);
+      transition: border-color 0.3s;
+    }
+
+    /* 突出新开设的高中部招聘卡片效果 */
+    .job-item.job-highlight {
+      border-left: 4px solid #1890FF;
+      background-color: #fbfdef;
+    }
+
+    .job-header {
+      display: flex;
+      flex-direction: column;
+      /* 手机端垂直 */
+      justify-content: space-between;
+      margin-bottom: 10px;
+      border-bottom: 1px dashed #ddd;
+      padding-bottom: 8px;
+    }
+
+    .job-title {
+      font-size: 16px;
+      color: var(--primary-color);
+      font-weight: bold;
+    }
+
+    .job-salary {
+      color: #E6A23C;
+      font-weight: bold;
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    .job-detail p {
+      font-size: 13.5px;
+      color: var(--text-main);
+      margin-bottom: 6px;
+      line-height: 1.5;
+    }
+
+    .job-detail strong {
+      color: var(--primary-color);
+    }
+
+    /* 简历投递向导按钮 */
+    .apply-guide {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #E6F7FF;
+      border: 1px dashed #91D5FF;
+      border-radius: 6px;
+      font-size: 14px;
+      color: #1890FF;
+      line-height: 1.6;
+    }
+
+    /* ==========================================================================
+       PC端大屏自适应升级 (> 768px)
+       ========================================================================== */
+    @media (min-width: 768px) {
+      .teacher-wrapper {
+        padding: 60px 0;
+      }
+
+      .teacher-container {
+        gap: 50px;
+      }
+
+      .job-box {
+        padding: 40px;
+      }
+
+      /* 名师卡片扩展自适应 */
+      .teacher-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 24px;
+      }
+
+      /* 招聘岗位头部左右并排 */
+      .job-header {
+        flex-direction: row;
+        margin-bottom: 12px;
+      }
+
+      .job-salary {
+        margin-top: 0;
+      }
     }
   </style>
 </head>
 
 <body>
-  <!-- 顶部 -->
+  <!-- 顶部导航 -->
   <header class="mobile-header">
     <div class="logo">
       <img src="../image/45a2c44216f7de784ade62aa60292dd7.jpg" alt="校徽">
@@ -33,7 +220,7 @@
         <li><a href="../index.html">首页</a></li>
         <li><a href="about.html">学校简介</a></li>
         <li><a href="news.html">新闻公告</a></li>
-        <li><a href="teacher.html">教师资源</a></li>
+        <li><a href="teacher.html" class="active">教师资源</a></li>
         <li><a href="student.html">新生报名</a></li>
         <li><a href="style.html">校园风采</a></li>
         <li><a href="contact.html">联系我们</a></li>
@@ -41,22 +228,163 @@
     </nav>
   </header>
 
-  <!-- 主题 -->
-  <main class="main">
-    <!-- 标题 -->
-    <h1>关于本校</h1>
-    <!-- 内容 -->
-    <div class="content-box">
-      资料待补充，后期填写学校教师资源
+  <!-- 主体内容区 -->
+  <main class="main-about">
+
+    <!-- 顶部横幅 -->
+    <section class="about-hero">
+      <div class="hero-overlay">
+        <h1>教师资源</h1>
+        <p>百年大计，教育为本；百年教育，教师为本</p>
+      </div>
+    </section>
+
+    <!-- 教师/招聘核心区 -->
+    <div class="teacher-wrapper">
+      <div class="teacher-container">
+
+        <!-- 模块一：名师风采展示 -->
+        <section>
+          <div class="section-title">
+            <h2>名师风采 / Faculty Show</h2>
+            <span class="line"></span>
+          </div>
+          <div class="teacher-grid">
+
+            <!-- 老师卡片 1（高中部名师） -->
+            <div class="teacher-card">
+              <img src="../image/45a2c44216f7de784ade62aa60292dd7.jpg" alt="教师头像" class="teacher-avatar">
+              <div class="teacher-info">
+                <h3>赵老师</h3>
+                <span class="teacher-tag tag-high">高中部华文教研组长</span>
+                <p class="teacher-desc">汉语言文学硕士，深谙高级华文修辞与文学常识，专注培养中缅双语高端复合型人才。</p>
+              </div>
+            </div>
+
+            <!-- 老师卡片 2 -->
+            <div class="teacher-card">
+              <img src="../image/45a2c44216f7de784ade62aa60292dd7.jpg" alt="教师头像" class="teacher-avatar">
+              <div class="teacher-info">
+                <h3>张老师</h3>
+                <span class="teacher-tag">中学部华文骨干</span>
+                <p class="teacher-desc">拥有10年海外华文教育工作经验，擅长语法解析与演讲口才训练，教学风格严谨。</p>
+              </div>
+            </div>
+
+            <!-- 老师卡片 3 -->
+            <div class="teacher-card">
+              <img src="../image/45a2c44216f7de784ade62aa60292dd7.jpg" alt="教师头像" class="teacher-avatar">
+              <div class="teacher-info">
+                <h3>李老师</h3>
+                <span class="teacher-tag">小学部金牌班主任</span>
+                <p class="teacher-desc">具有丰富的拼音及基础识字教学经验，课堂氛围活泼，深受中低年级学生喜爱。</p>
+              </div>
+            </div>
+
+            <!-- 老师卡片 4 -->
+            <div class="teacher-card">
+              <img src="../image/45a2c44216f7de784ade62aa60292dd7.jpg" alt="教师头像" class="teacher-avatar">
+              <div class="teacher-info">
+                <h3>王老师</h3>
+                <span class="teacher-tag">幼儿启蒙专家</span>
+                <p class="teacher-desc">专注幼儿早期华文兴趣启蒙，独创情境儿歌教学法，让孩子们在快乐中爱上中文。</p>
+              </div>
+            </div>
+
+            <!-- 老师卡片 5 -->
+            <div class="teacher-card">
+              <img src="../image/45a2c44216f7de784ade62aa60292dd7.jpg" alt="教师头像" class="teacher-avatar">
+              <div class="teacher-info">
+                <h3>Daw Aye Aye</h3>
+                <span class="teacher-tag">高级缅语讲师</span>
+                <p class="teacher-desc">精通中缅双语，专门负责外籍学生以及高年级缅文语法、文化课程的衔接教学。</p>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- 模块二：诚聘英才公告 -->
+        <section class="job-box">
+          <div class="section-title">
+            <h2>诚聘英才 / Recruitment Announcements</h2>
+            <span class="line"></span>
+          </div>
+          <p style="font-size: 15px; color: #444; line-height: 1.6;">
+            为满足学校教育事业的跨越式发展，彬乌伦佛经学校常年面向海内外诚聘热爱华文教育的优秀教师。
+          </p>
+
+          <div class="job-list">
+
+            <!-- 🌟 新增：职位 1（专门针对高中部老师招聘） -->
+            <div class="job-item job-highlight">
+              <div class="job-header">
+                <span class="job-title">✨ 高中部华文专职教师 (2名) - 【热招岗位】</span>
+                <span class="job-salary">💰 待遇：薪资从优面议 / 提供专属课酬津贴 + 独立宿舍</span>
+              </div>
+              <div class="job-detail">
+                <p><strong>岗位职责：</strong>负责高中学段高级华文、中国文学常识及HSK（五/六级）高级考证课程的日常教学、教材研发及学科评测工作。</p>
+                <p><strong>任职要求：</strong>大学本科及以上学历（汉语言文学、对外汉语或教育学相关专业优先）；普通话二级甲等及以上；具备良好的高级华文教学逻辑，有高中任教或国际双语教学经验者优先。</p>
+              </div>
+            </div>
+
+            <!-- 职位 2 -->
+            <div class="job-item">
+              <div class="job-header">
+                <span class="job-title">💡 中小学华文专职教师 (多名)</span>
+                <span class="job-salary">💰 待遇：面议 / 优厚基本薪酬 + 职务津贴</span>
+              </div>
+              <div class="job-detail">
+                <p><strong>岗位职责：</strong>负责中小学对应年级的华文基础课程、趣味听说以及中华传统文化课程的教学与班级日常管理。</p>
+                <p><strong>任职要求：</strong>大专及以上学历，中文流利，普通话标准，富有亲和力，有相关学校基础华文教学经验者优先。</p>
+              </div>
+            </div>
+
+            <!-- 职位 3 -->
+            <div class="job-item">
+              <div class="job-header">
+                <span class="job-title">💡 幼儿部华文启蒙教师 (2名)</span>
+                <span class="job-salary">💰 待遇：面议 / 提供食宿 + 节假日福利</span>
+              </div>
+              <div class="job-detail">
+                <p><strong>岗位职责：</strong>负责幼儿小班、中班、大班趣味拼音、儿歌、看图说话等基本启蒙教学。</p>
+                <p><strong>任职要求：</strong>极具亲和力、耐心与责任心，喜欢孩子，具有幼教或艺术特长者优先。</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- 投递简历指南 -->
+          <div class="apply-guide">
+            <strong>📬 简历投递及申请方式：</strong><br>
+            有意应聘者请将个人详细简历、学历证书扫描件发送至学校官方邮箱：<span
+              style="font-weight: bold; text-decoration: underline;">contact@poldfjbs.edu.mm</span>，并在邮件标题中注明“应聘岗位+姓名”。或直接在“联系我们”页面留言，我们将安排专人与您进行面试接洽。
+          </div>
+        </section>
+
+      </div>
     </div>
   </main>
 
-  <!-- 底部 -->
+  <!-- 底部页脚 -->
   <footer class="footer">
-    <p>地址：缅甸彬乌伦</p>
-    <p>© 2026 彬乌伦佛经学校 版权所有 | 缅中双语版权</p>
-    <p>联系方式：123-456-789</p>
+    <div class="footer-content">
+      <div class="footer-info">
+        <p><strong>📍 学校地址：</strong>缅甸 曼德勒省 彬乌伦 (Pyin Oo Lwin, Myanmar)</p>
+        <p><strong>📞 联系电话：</strong>123-456-789 / +95 xxxxxxxx</p>
+        <p><strong>✉️ 官方邮箱：</strong>contact@poldfjbs.edu.mm</p>
+      </div>
+      <div class="footer-qrcode">
+        <div class="qr-placeholder">
+          <span>微信公众号<br>二维码</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 彬乌伦佛经学校 版权所有 | 缅中双语教学体系</p>
+    </div>
   </footer>
+
   <script src="../js/common.js"></script>
 </body>
 

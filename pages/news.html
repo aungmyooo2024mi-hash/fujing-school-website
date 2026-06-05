@@ -1,24 +1,183 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>校园新闻</title>
+  <title>新闻公告 - 彬乌伦佛经学校</title>
+  <meta name="description"
+    content="彬乌伦佛经学校官方网站提供2026学年最新华文教育课程、新生报名须知、师资招聘公告及校园风采展示。学校致力于弘扬中华文化，推动缅中双语教育，为学生打造优质的学习发展与成长环境。">
+  <meta name="keywords" content="彬乌伦佛经学校,缅甸华文学校,彬乌伦学校招生,缅甸中文培训,缅中双语学校">
   <link rel="shortcut icon" href="../image/45a2c44216f7de784ade62aa60292dd7.jpg" type="image/x-icon">
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/common.css">
   <style>
-    .main {
-      text-align: center;
-      flex: 1;
+    /* ==========================================================================
+       针对新闻公告页面的局部精致响应式样式（不污染 common.css）
+       ========================================================================== */
+    .news-wrapper {
+      background-color: var(--bg-light);
+      padding: 40px 16px;
+    }
+
+    .news-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    /* 1. 校园热点 - 网格卡片样式 */
+    .news-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      /* 手机端默认单列 */
+      gap: 20px;
+    }
+
+    .news-card {
+      background: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+      transition: transform 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .news-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .news-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      background-color: #eee;
+    }
+
+    .news-body {
       padding: 20px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .news-date {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .news-body h3 {
+      font-size: 16px;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    .news-body p {
+      font-size: 13.5px;
+      color: #555555;
+      line-height: 1.6;
+    }
+
+    /* 2. 通知公告 - 简洁列表样式 */
+    .notice-list {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+
+    .notice-item {
+      display: flex;
+      flex-direction: column;
+      /* 手机端上下排列 */
+      padding: 16px 0;
+      border-bottom: 1px dashed #eef2f5;
+      text-align: left;
+    }
+
+    .notice-item:last-child {
+      border-bottom: none;
+    }
+
+    .notice-item-date {
+      font-size: 13px;
+      color: var(--secondary-color);
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    .notice-item-title {
+      font-size: 15px;
+      color: var(--text-main);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .notice-item-title:hover {
+      color: var(--primary-color);
+    }
+
+    /* ==========================================================================
+       PC端大屏自适应升级 (> 768px)
+       ========================================================================== */
+    @media (min-width: 768px) {
+      .news-wrapper {
+        padding: 60px 0;
+      }
+
+      .news-container {
+        gap: 50px;
+      }
+
+      /* 新闻网格变为两栏并排 */
+      .news-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+      }
+
+      .news-img {
+        height: 220px;
+      }
+
+      .news-body h3 {
+        font-size: 18px;
+      }
+
+      /* 通知公告变为左日期、右标题的横向整齐排版 */
+      .notice-list {
+        padding: 30px 40px;
+      }
+
+      .notice-item {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .notice-item-date {
+        margin-bottom: 0;
+        flex-shrink: 0;
+        width: 120px;
+      }
+
+      .notice-item-title {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        /* 超出文本自动变省略号 */
+      }
     }
   </style>
 </head>
 
 <body>
-  <!-- 顶部 -->
   <header class="mobile-header">
     <div class="logo">
       <img src="../image/45a2c44216f7de784ade62aa60292dd7.jpg" alt="校徽">
@@ -32,31 +191,107 @@
       <ul>
         <li><a href="../index.html">首页</a></li>
         <li><a href="about.html">学校简介</a></li>
-        <li><a href="news.html">新闻公告</a></li>
-        <li><a href="teacher.html">师资招聘</a></li>
+        <li><a href="news.html" class="active">新闻公告</a></li>
+        <li><a href="teacher.html">教师资源</a></li>
         <li><a href="student.html">新生报名</a></li>
         <li><a href="style.html">校园风采</a></li>
-        <li><a href="pacontact.html">联系我们</a></li>
+        <li><a href="contact.html">联系我们</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- 主题 -->
-  <main class="main">
-    <!-- 标题 -->
-    <h1>关于本校</h1>
-    <!-- 内容 -->
-    <div class="content-box">
-      资料待补充，后期填写学校新闻，最新公告
+  <main class="main-about">
+
+    <section class="about-hero">
+      <div class="hero-overlay">
+        <h1>新闻公告</h1>
+        <p>聚焦校园动态，传递最新通知公告</p>
+      </div>
+    </section>
+
+    <div class="news-wrapper">
+      <div class="news-container">
+
+        <section>
+          <div class="section-title">
+            <h2>校园要闻 / Campus News</h2>
+            <span class="line"></span>
+          </div>
+          <div class="news-grid">
+
+            <article class="news-card">
+              <img src="../image/dbdea1b6933329fa467aacdf55b439de.jpg" alt="活动缩略图" class="news-img">
+              <div class="news-body">
+                <span class="news-date">📅 2026年05月20日</span>
+                <h3>我校成功举办2026学年华文朗诵比赛</h3>
+                <p>为弘扬中华传统文化，提高学生的口语表达能力，我校于本周三下午在礼堂举行了年度华文朗诵比赛。各年级学子各显身手，现场气氛热烈非凡...</p>
+              </div>
+            </article>
+
+            <article class="news-card">
+              <img src="../image/dbdea1b6933329fa467aacdf55b439de.jpg" alt="活动缩略图" class="news-img">
+              <div class="news-body">
+                <span class="news-date">📅 2026年04月15日</span>
+                <h3>中缅友好交流代表团莅临我校参观指导</h3>
+                <p>代表团一行对我校在海外华文教育、双语课程建设方面取得的成果给予了高度评价，并向学校捐赠了一批全新的中文多媒体教学设备...</p>
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+        <section>
+          <div class="section-title">
+            <h2>通知公告 / Notice</h2>
+            <span class="line"></span>
+          </div>
+          <div class="notice-list">
+
+            <div class="notice-item">
+              <span class="notice-item-date">📌 2026-06-01</span>
+              <a href="#" class="notice-item-title">【重要】彬乌伦佛经学校2026学年度下学期开学注册须知</a>
+            </div>
+
+            <div class="notice-item">
+              <span class="notice-item-date">📌 2026-05-10</span>
+              <a href="#" class="notice-item-title">【招聘】2026年秋季学期中小学华文教师招聘面试时间安排通知</a>
+            </div>
+
+            <div class="notice-item">
+              <span class="notice-item-date">📌 2026-04-30</span>
+              <a href="#" class="notice-item-title">关于2026年“泼水节”期间学校放假及安全注意事项的通知</a>
+            </div>
+
+            <div class="notice-item">
+              <span class="notice-item-date">📌 2026-03-12</span>
+              <a href="#" class="notice-item-title">我校多媒体教学设备升级采购项目招标结果公示</a>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
     </div>
   </main>
 
-  <!-- 底部 -->
   <footer class="footer">
-    <p>地址：缅甸彬乌伦</p>
-    <p>© 2026 彬乌伦佛经学校 版权所有 | 缅中双语版权</p>
-    <p>联系方式：123-456-789</p>
+    <div class="footer-content">
+      <div class="footer-info">
+        <p><strong>📍 学校地址：</strong>缅甸 曼德勒省 彬乌伦 (Pyin Oo Lwin, Myanmar)</p>
+        <p><strong>📞 联系电话：</strong>123-456-789 / +95 xxxxxxxx</p>
+        <p><strong>✉️ 官方邮箱：</strong>contact@poldfjbs.edu.mm</p>
+      </div>
+      <div class="footer-qrcode">
+        <div class="qr-placeholder">
+          <span>微信公众号<br>二维码</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 彬乌伦佛经学校 版权所有 | 缅中双语教学体系</p>
+    </div>
   </footer>
+
   <script src="../js/common.js"></script>
 </body>
 

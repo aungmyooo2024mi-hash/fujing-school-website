@@ -12,28 +12,48 @@
   /* 次文字灰 */
   --bg-light: #F4F6F9;
   /* 浅灰底衬 */
+  --bg-dark: #051626;
+  /* 藏青深色底 */
   --transition-speed: 0.3s;
   /* 全局柔和过渡速度 */
+}
+
+/* 全局初始化 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html,
 body {
   height: 100%;
-  margin: 0;
 }
 
+/* 开启弹性盒纵向排列 */
 body {
   display: flex;
   flex-direction: column;
   color: var(--text-main);
   background-color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  line-height: 1.6;
 }
+
+/* 🌟 核心：就是这一步让中间拉伸，把页脚稳稳地撑在最底下 */
+.main-about {
+  flex: 1;
+  background-color: #ffffff;
+  padding-bottom: 40px;
+  /* 留出底部间距，防止内容死贴页脚 */
+}
+
 
 /* ==========================================================================
    2. 手机端/移动端优先样式 (Mobile First Styles < 768px)
    ========================================================================== */
 
-/* 顶部导航栏 */
+/* 2.1 顶部导航栏 */
 .mobile-header {
   display: flex;
   justify-content: space-between;
@@ -77,7 +97,7 @@ body {
   background: none;
   border: none;
   display: block;
-  /* 手机端显示 */
+  cursor: pointer;
 }
 
 /* 手机端导航列表：默认隐藏，通过 JS 改变 display */
@@ -100,6 +120,8 @@ body {
 .mobile-header .nav ul {
   display: flex;
   flex-direction: column;
+  list-style: none;
+  /* 移除列表小圆点 */
 }
 
 .mobile-header .nav ul li a {
@@ -107,7 +129,13 @@ body {
   padding: 12px 24px;
   color: #ffffff;
   font-size: 15px;
+  text-decoration: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.mobile-header .nav ul li a.active {
+  color: var(--secondary-color);
+  font-weight: bold;
 }
 
 .mobile-header .nav ul li a:hover {
@@ -115,21 +143,316 @@ body {
   color: var(--secondary-color);
 }
 
-/* 页脚 */
-.footer {
-  background-color: #051626;
-  /* 更深的藏青蓝托底 */
-  color: rgba(255, 255, 255, 0.75);
-  padding: 30px 16px;
+/* --------------------------------------------------------------------------
+   🆕 2.2 【新增】“关于本校” 手机端主体内容响应式布局
+   -------------------------------------------------------------------------- */
+
+/* 手机端顶部轻量级小横幅 */
+.about-hero {
+  background-color: var(--primary-color);
+  /* 纯色兜底 */
+  /* 如果有背景图，可以解开下方注释： */
+  /* background: linear-gradient(rgba(10, 37, 64, 0.85), rgba(10, 37, 64, 0.85)), url('../image/dbdea1b6933329fa467aacdf55b439de.jpg') no-repeat center/cover; */
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  font-size: 13px;
-  line-height: 1.8;
+  color: #ffffff;
 }
 
-.footer p {
+.about-hero h1 {
+  font-size: 22px;
+  margin-bottom: 4px;
+  color: #ffffff;
+}
+
+.about-hero p {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* 手机端版心容器：两边留足呼吸感内边距 */
+.about-container {
+  padding: 10px 16px;
+}
+
+/* 模块小块间距 */
+.about-section {
+  padding: 24px 0;
+}
+
+/* 局部小标题及金黄色小短线 */
+.about-section .section-title {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.about-section .section-title h2 {
+  font-size: 18px;
+  color: var(--primary-color);
+}
+
+.about-section .section-title .line {
+  display: block;
+  width: 30px;
+  height: 3px;
+  background-color: var(--secondary-color);
+  margin-top: 6px;
+}
+
+/* 🌟 手机端核心：强行更改为 Flex 垂直列堆叠，防止单行挤压溢出 */
+.grid-2col,
+.grid-3col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* 手机端文章排版 */
+.text-block p {
+  font-size: 14.5px;
+  color: #444444;
+  line-height: 1.7;
+  margin-bottom: 12px;
+  text-align: justify;
+  /* 文字两端对齐，消除锯齿感 */
+}
+
+/* 手机端图片：自适应容器宽度 */
+.img-block img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  object-fit: cover;
+}
+
+/* 手机端办学理念卡片 */
+.concept-card {
+  background: var(--bg-light);
+  padding: 20px 16px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.concept-card .icon {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.concept-card h3 {
+  font-size: 16px;
+  color: var(--primary-color);
   margin-bottom: 6px;
 }
 
-.footer p:last-child {
-  margin-bottom: 0;
+.concept-card p {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* -------------------------------------------------------------------------- */
+
+/* 2.3 页脚 */
+.footer {
+  background-color: var(--bg-dark);
+  color: rgba(255, 255, 255, 0.75);
+  padding: 32px 16px;
+  font-size: 13px;
+  margin-top: auto;
+  /* 核心：当内容不够时，自动产生顶部外边距压到底部 */
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.footer-info p {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.footer-qrcode {
+  display: flex;
+  justify-content: center;
+}
+
+.qr-placeholder {
+  width: 100px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 16px;
+}
+
+
+/* ==========================================================================
+   3. PC端大屏响应式样式 (Desktop Styles > 768px)
+   ========================================================================== */
+@media (min-width: 768px) {
+
+  /* 统一大屏两侧留白，锁死 1200px 宽度版心 */
+  .mobile-header,
+  .about-container,
+  .footer {
+    padding-left: calc((100% - 1200px) / 2);
+    padding-right: calc((100% - 1200px) / 2);
+  }
+
+  /* 导航栏 PC 适配 */
+  .mobile-header {
+    height: 90px;
+    border-bottom: 1px solid #eef2f5;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+  }
+
+  .mobile-header .logo img {
+    width: 52px;
+    height: 52px;
+  }
+
+  .mobile-header .school-name h1 {
+    font-size: 22px;
+  }
+
+  .mobile-header .school-name p {
+    font-size: 12px;
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+
+  .mobile-header .nav {
+    display: block !important;
+    position: static;
+    width: auto;
+    background: none;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .mobile-header .nav ul {
+    flex-direction: row;
+    gap: 28px;
+  }
+
+  .mobile-header .nav ul li a {
+    padding: 10px 0;
+    color: var(--text-main);
+    font-size: 16px;
+    font-weight: 500;
+    border-bottom: 3px solid transparent;
+    transition: color var(--transition-speed), border-color var(--transition-speed);
+  }
+
+  .mobile-header .nav ul li a:hover {
+    background: none;
+    color: var(--primary-color);
+    border-bottom-color: var(--secondary-color);
+  }
+
+  /* 💡 关于我们 PC 端排版切换升级：由堆叠变为精致的多栏并排 */
+  .about-hero {
+    height: 180px;
+  }
+
+  .about-hero h1 {
+    font-size: 32px;
+  }
+
+  .about-section {
+    padding: 40px 0;
+  }
+
+  .about-section .section-title h2 {
+    font-size: 24px;
+  }
+
+  /* 概况板块：左右图文错落 */
+  .grid-2col {
+    flex-direction: row;
+    align-items: center;
+    gap: 50px;
+  }
+
+  .grid-2col .text-block {
+    flex: 1.2;
+  }
+
+  .grid-2col .img-block {
+    flex: 0.8;
+  }
+
+  /* 办学理念板块：三张卡片横向平分空间 */
+  .grid-3col {
+    flex-direction: row;
+    gap: 24px;
+  }
+
+  .concept-card {
+    flex: 1;
+    padding: 28px 20px;
+    transition: transform var(--transition-speed);
+  }
+
+  .concept-card:hover {
+    transform: translateY(-5px);
+    /* 鼠标滑过轻微悬浮 */
+  }
+
+  /* 页脚 PC 适配 */
+  .footer {
+    padding-top: 50px;
+    padding-bottom: 20px;
+  }
+
+  .footer-content {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 30px;
+  }
+
+  .footer-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .footer-info p {
+    margin-bottom: 0;
+  }
+
+  .footer-qrcode {
+    justify-content: flex-end;
+  }
+
+  .qr-placeholder {
+    width: 110px;
+    height: 110px;
+  }
+
+  .footer-bottom {
+    border-top: none;
+    padding-top: 16px;
+  }
 }
