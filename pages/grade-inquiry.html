@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学生成绩查询 - 彬乌伦佛经学校</title>
+  <meta name="description"
+    content="彬乌伦佛经学校官方网站提供2026学年最新华文教育课程、新生报名须知、师资招聘公告及校园风采展示。学校致力于弘扬中华文化，推动缅中双语教育，为学生打造优质的学习发展与成长环境。">
+  <meta name="keywords" content="彬乌伦佛经学校,缅甸华文学校,彬乌伦学校招生,缅甸中文培训,缅中双语学校">
+  <link rel="shortcut icon" href="../image/45a2c44216f7de784ade62aa60292dd7.jpg" type="image/x-icon">
+  <link rel="stylesheet" href="../css/base.css">
+  <style>
+    body {
+      background-color: #f4f6f9;
+      /* 加个淡淡的背景色，衬托居中的白卡片 */
+    }
+
+    .query-container {
+      max-width: 500px;
+      margin: 60px auto;
+      padding: 35px;
+      background: #fff;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+      /* 柔和的阴影 */
+      border-radius: 12px;
+      /* 圆角稍微放大一点，更现代 */
+    }
+
+    .query-container h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #1a1a1a;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #444;
+      font-size: 14px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #ced4da;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    /* 优化输入框聚焦时的视觉反馈 */
+    .form-group input:focus {
+      border-color: #0056b3;
+      box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.15);
+      outline: none;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 12px;
+      background-color: #0056b3;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 10px;
+    }
+
+    .btn-submit:hover {
+      background-color: #004494;
+    }
+
+    /* 提示信息横幅 */
+    .message-banner {
+      display: none;
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .message-banner.loading {
+      background-color: #e2f0d9;
+      color: #385723;
+    }
+
+    /* 成绩结果面板 - 默认隐藏 */
+    .result-panel {
+      display: none;
+      margin-top: 30px;
+      border-top: 2px dashed #dee2e6;
+      /* 改为虚线隔开线，更好看 */
+      padding-top: 25px;
+    }
+
+    /* 结果展示的学生信息排版 */
+    .student-meta {
+      display: flex;
+      justify-content: space-between;
+      background: #f8f9fa;
+      padding: 12px 15px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-size: 15px;
+    }
+
+    .result-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    .result-table th,
+    .result-table td {
+      border-bottom: 1px solid #dee2e6;
+      /* 改为干净的行线 */
+      padding: 12px;
+      text-align: center;
+    }
+
+    .result-table th {
+      background-color: #f1f3f5;
+      color: #495057;
+      font-weight: 600;
+    }
+
+    /* 成绩高亮样式 */
+    .score-high {
+      color: #198754;
+      font-weight: bold;
+    }
+
+    .score-low {
+      color: #dc3545;
+      font-weight: bold;
+    }
+
+    .error-msg {
+      color: #dc3545;
+      background-color: #f8d7da;
+      border: 1px solid #f5c2c7;
+      padding: 10px;
+      border-radius: 6px;
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+      display: none;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="query-container">
+    <h2>📊 学生成绩查询系统</h2>
+
+    <div id="messageBanner" class="message-banner"></div>
+
+    <form id="queryForm">
+      <div class="form-group">
+        <label for="studentId">学生编号 (Student ID)</label>
+        <input type="text" id="studentId" placeholder="请输入学校唯一学生编号" required>
+      </div>
+
+      <div class="form-group">
+        <label for="studentName">学生姓名</label>
+        <input type="text" id="studentName" placeholder="请输入学生真实姓名" required>
+      </div>
+
+      <div class="form-group">
+        <label for="className">所在班级</label>
+        <input type="text" id="className" placeholder="例如：高一甲班" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">查询密码</label>
+        <input type="password" id="password" placeholder="请输入查询密码" required autocomplete="current-password">
+      </div>
+
+      <button type="submit" class="btn-submit">立即验证并查询</button>
+    </form>
+
+    <div id="errorMsg" class="error-msg"></div>
+
+    <div id="resultPanel" class="result-panel">
+      <div class="student-meta">
+        <span><strong>姓名：</strong><span id="resName">--</span></span>
+        <span><strong>班级：</strong><span id="resClass">--</span></span>
+      </div>
+      <table class="result-table">
+        <thead>
+          <tr>
+            <th>考试科目</th>
+            <th>最终成绩</th>
+          </tr>
+        </thead>
+        <tbody id="scoreTableBody">
+        </tbody>
+      </table>
+    </div>
+
+    <div style="text-align: center; margin-top: 25px;">
+      <a href="../index.html" style="color: #0056b3; text-decoration: none; font-size: 14px;">← 返回学校首页</a>
+    </div>
+  </div>
+
+  <script src="../js/query.js"></script>
+</body>
+
+</html>
