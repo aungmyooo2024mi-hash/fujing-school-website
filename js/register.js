@@ -2,10 +2,13 @@ document.getElementById('enrollForm').addEventListener('submit', function (event
   // 1. 坚决阻止原表单的弹窗与页面刷新行为，把控制权交给 JS
   event.preventDefault();
 
-  // 2. 严格对应你 HTML 中的 id 抓取输入值
+  // 抓取提交按钮，用来做防止连击的控制
+  const submitBtn = this.querySelector('.submit-btn');
+
+  // 2. 严格对应你最新 HTML 中的 id 抓取输入值
   const studentName = document.getElementById('student_name').value.trim();
   const studentAge = document.getElementById('student_age').value;
-  const enrollGrade = document.getElementById('enroll_grade').value;
+  const enrollGrade = document.getElementById('grade_apply').value; // 💡 完美对齐最新 HTML 的 grade_apply！
   const parentPhone = document.getElementById('parent_phone').value.trim();
   const parentWechat = document.getElementById('parent_wechat').value.trim();
   const liveArea = document.getElementById('live_area').value.trim();
@@ -15,16 +18,20 @@ document.getElementById('enrollForm').addEventListener('submit', function (event
   const enrollData = {
     student_name: studentName,
     student_age: parseInt(studentAge), // 确保年龄作为数字送给后端
-    enroll_grade: enrollGrade,
+    enroll_grade: enrollGrade,        // 传给后端的键名为 enroll_grade 匹配你的 app.py
     parent_phone: parentPhone,
     parent_wechat: parentWechat,
     live_area: liveArea,
     enroll_remark: enrollRemark
   };
 
-  console.log("准备发射数据到后端：", enrollData);
+  // 4. 锁定提交按钮，给家长一个友好的等待文字
+  submitBtn.disabled = true;
+  submitBtn.innerText = '正在提交申请... / Submitting...';
 
-  // 4. 用 fetch 跨时空投递给 Python 后端 (端口5000)
+  console.log("🚀 数据封装成功，正准备跨时空发射到 Python 后端：", enrollData);
+
+  // 5. 用 fetch 投递给 Python 后端 (端口5000)
   fetch('http://127.0.0.1:5000/api/register_student', {
     method: 'POST',
     headers: {
@@ -34,21 +41,28 @@ document.getElementById('enrollForm').addEventListener('submit', function (event
   })
     .then(response => {
       if (!response.ok) {
-        throw new Error('网络响应不正常');
+        throw new Error('网络响应不正常，请检查后端是否开启！');
       }
       return response.json();
     })
     .then(data => {
-      // 5. 接收 Python 吐出来的回应
       if (data.status === 'success') {
-        alert(data.message); // 弹出 Python 发来的带有 🎉 的成功祝贺信
-        document.getElementById('enrollForm').reset(); // 自动清空网页表单
+        // 后端验证通过：弹出后端返回的温馨成功信息
+        alert("🎉 提交成功！\n" + data.message);
+        document.getElementById('enrollForm').reset(); // 自动清空表单数据
       } else {
-        alert(data.message); // 如果触发了网安拦截，弹出拦截原因
+        // 后端拦截提示（比如电话格式错、必填项空）
+        alert("❌ 提交失败：\n" + data.message);
       }
     })
     .catch(error => {
-      console.error('联调失败原因:', error);
-      alert('无法连接到服务器。请检查：1. Python后端是否运行 2. 终端有没有报错');
+      // 捕获各种断网或者 Flask 没开的极端崩溃情况
+      alert("⚠️ 系统提示：无法连接到学校教务系统服务器，请确保本地 Python 后端 app.py 已经运行！");
+      console.error('错误详情:', error);
+    })
+    .finally(() => {
+      // 无论成功还是失败，最后都要把按钮和文字恢复原状
+      submitBtn.disabled = false;
+      submitBtn.innerText = '提交预约申请 / Submit';
     });
 });

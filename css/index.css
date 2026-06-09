@@ -172,6 +172,7 @@ body {
 
 .mobile-header .nav ul li a.active {
   color: var(--secondary-color);
+  border-bottom-color: var(--secondary-color);
   font-weight: bold;
 }
 
@@ -503,6 +504,29 @@ body {
   .footer {
     padding-left: calc((100% - 1200px) / 2);
     padding-right: calc((100% - 1200px) / 2);
+  }
+
+  /* PC端容器的标准现代写法：背景通栏，内容居中 */
+  .banner-container,
+  .feature-container,
+  .links-container,
+  .card-container,
+  .gallery-grid,
+  .footer-content {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  }
+
+  /* 同时给各个大板块在PC端补充一点基础的上下左右安全内边距 */
+  .features,
+  .quick-links,
+  .news,
+  .gallery-preview,
+  .footer {
+    padding-left: 24px;
+    padding-right: 24px;
   }
 
   /* 3.1 导航栏 */

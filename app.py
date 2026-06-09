@@ -32,40 +32,51 @@ GRADE_TRANSLATION = {
     "primary_low": "小学低年级（1-3年级）",
     "primary_high": "小学高年级（4-6年级）",
     "junior_middle": "初中部（7-9年级）",
-    "senior_high": "高中部（10-12年级/高一至高三）",
-    "intensive_class": "华文加强班（业余强化学习）"
+    "senior_high": "高中部（10-12年级）"
 }
 
-# 模拟数据存贮箱
-MOCK_REGISTRATION_LIST = []
+# 模拟的其他全局内存数据库容器
+MOCK_ENROLLMENT_LIST = []
 MOCK_JOB_APPLICATION_LIST = []
 
 
-# --------- 接口一：学生成绩查询 ---------
+# --------- 接口一：成绩查询接口 ---------
 @app.route('/api/query_score', methods=['POST'])
 def query_score():
     data = request.json
     if not data:
-        return jsonify({"status": "error", "message": "未接收到有效请求"}), 400
-    
+        return jsonify({"status": "error", "message": "请求数据为空"}), 400
+
     student_id = data.get('student_id', '').strip()
+    
+    # 🛠️ 【核心修复】：将驼峰命名改为下划线，从而完美匹配前端 query.js 发来的数据
     student_name = data.get('student_name', '').strip()
     class_name = data.get('class_name', '').strip()
+    
     password = data.get('password', '')
 
-    if len(student_id) > 20 or len(student_name) > 20:
-        return jsonify({"status": "error", "message": "输入参数长度异常"}), 200
+    # 基础空值拦截
+    if not student_id or not student_name or not class_name or not password:
+        return jsonify({"status": "error", "message": "所有查询信息均为必填项"}), 200
 
+    print(f"\n[🔍 收到查询请求] 学号:{student_id} | 姓名:{student_name} | 班级:{class_name}")
+
+    # 1. 验证学号是否存在
     if student_id not in MOCK_STUDENT_DB:
-        return jsonify({"status": "error", "message": "未找到该学生编号"}), 200
+        return jsonify({"status": "error", "message": "未找到该学号对应的学生信息"}), 200
 
     student_info = MOCK_STUDENT_DB[student_id]
 
-    if (student_info["name"] != student_name or 
-        student_info["class"] != class_name or 
-        student_info["password"] != password):
-        return jsonify({"status": "error", "message": "学生信息与密码不匹配"}), 200
+    # 2. 验证姓名和班级是否精准匹配
+    if student_info["name"] != student_name or student_info["class"] != class_name:
+        return jsonify({"status": "error", "message": "学生姓名或班级信息不匹配，请重新核对"}), 200
 
+    # 3. 验证密码
+    if student_info["password"] != password:
+        return jsonify({"status": "error", "message": "查询密码不正确"}), 200
+
+    # 4. 验证完全通过，安全返回数据给前端
+    print(f" 成功：验证通过！正在将【{student_name}】的成绩单下发至前端。")
     return jsonify({
         "status": "success",
         "student_name": student_info["name"],
@@ -74,57 +85,61 @@ def query_score():
     })
 
 
-# --------- 接口二：新生报名接收接口 (加入中文翻译优化) ---------
-@app.route('/api/register_student', methods=['POST'])
-def register_student():
+# --------- 接口二：新生报名接口（全面升级兼容版） ---------
+@app.route('/api/register_student', methods=['POST'])  
+def enroll_student():
     data = request.json
     if not data:
-        return jsonify({"status": "error", "message": "表单数据为空"}), 400
+        return jsonify({"status": "error", "message": "报名数据为空"}), 400
 
+    # 2. 精准抓取你 register.js 发出的所有好料
     student_name = data.get('student_name', '').strip()
-    student_age = data.get('student_age', '')
-    enroll_grade = data.get('enroll_grade', '').strip() # 此时拿到的是 'senior_high'
+    student_age = data.get('student_age')
+    enroll_grade_key = data.get('enroll_grade', '').strip() 
     parent_phone = data.get('parent_phone', '').strip()
     parent_wechat = data.get('parent_wechat', '').strip()
     live_area = data.get('live_area', '').strip()
     enroll_remark = data.get('enroll_remark', '').strip()
 
-    if not student_name or not student_age or not enroll_grade or not parent_phone or not live_area:
-        return jsonify({"status": "error", "message": "❌ 提交失败：带 * 的必填项不能为空！"}), 200
+    # 3. 基础必填项安全拦截
+    if not student_name or not enroll_grade_key or not parent_phone or not live_area:
+        return jsonify({"status": "error", "message": "提交失败：标有 * 的必填项信息不完整"}), 200
 
-    if len(student_name) > 20 or len(parent_phone) > 20:
-        return jsonify({"status": "error", "message": "❌ 安全警告：输入文本过长"}), 200
+    if not re.match(r'^[0-9+\\-]+$', parent_phone):
+        return jsonify({"status": "error", "message": "提交失败：家长联系电话格式不正确"}), 200
 
-    if not re.match(r'^[0-9+\-]+$', parent_phone):
-        return jsonify({"status": "error", "message": "❌ 提交失败：联系电话格式不合法"}), 200
+    # 4. 智能翻译年级标签（适配你前端对应的 preschool, primary_low 等值）
+    grade_chinese = GRADE_TRANSLATION.get(enroll_grade_key, f"未知年级({enroll_grade_key})")
 
-    # 🌟 使用翻译词典将英文代号变成中文显示
-    # .get(key, default) 的意思是：如果词典里有对应的中文就换掉，没有就显示原来的英文
-    grade_chinese = GRADE_TRANSLATION.get(enroll_grade, enroll_grade)
+    # 5. 后台打印出极其漂亮的结构化日志
+    print("\n" + "="*50)
+    print(f"[👶 收到完整新生预报名申请]")
+    print(f" 👤 学生姓名: {student_name} ({student_age} 岁)")
+    print(f" 📚 报读年级: {grade_chinese}")
+    print(f" 📞 家长电话: {parent_phone}")
+    print(f" 💬 家长微信: {parent_wechat if parent_wechat else '未填写'}")
+    print(f" 📍 现居住地: {live_area}")
+    print(f" 📝 补充备注: {enroll_remark if enroll_remark else '无'}")
+    print("="*50)
 
-    print(f"\n[👶 收到新预约报名]")
-    print(f" ├─ 学生姓名: {student_name} ({student_age}岁)")
-    print(f" ├─ 报读年级: {grade_chinese} (后台标识: {enroll_grade})")  # 这里的输出就变成漂亮的中文啦！
-    print(f" ├─ 家长电话: {parent_phone} | 微信: {parent_wechat if parent_wechat else '未填'}")
-    print(f" ├─ 现居住地: {live_area}")
-    print(f" └─ 备注说明: {enroll_remark if enroll_remark else '无'}")
-
-    new_record = {
+    # 6. 存入内存模拟数据库
+    new_student = {
         "student_name": student_name,
         "student_age": student_age,
-        "enroll_grade": enroll_grade, # 数据库里建议依然保存规范的英文
+        "enroll_grade": grade_chinese,
         "parent_phone": parent_phone,
         "parent_wechat": parent_wechat,
         "live_area": live_area,
         "enroll_remark": enroll_remark
     }
-    MOCK_REGISTRATION_LIST.append(new_record)
-    print(f"📈 当前全校累计预约登记人数: {len(MOCK_REGISTRATION_LIST)} 人")
+    MOCK_ENROLLMENT_LIST.append(new_student)
+    print(f"💡 当前全校已预报名学生总数: {len(MOCK_ENROLLMENT_LIST)}人")
 
-    return jsonify({"status": "success", "message": "🎉 恭喜！您的预约申请已成功提交至学校后台，招生办老师将尽快与您联络！"})
-
-
-# --------- 接口三：教师招聘表单接收 ---------
+    return jsonify({
+        "status": "success", 
+        "message": f"【{student_name}】同学的预报名申请已成功提交！学校招生办会尽快通过电话或微信与您取得联系。"
+    })
+# --------- 接口三：师资招聘接口 ---------
 @app.route('/api/apply_teacher', methods=['POST'])
 def apply_teacher():
     data = request.json
@@ -138,7 +153,7 @@ def apply_teacher():
     if not teacher_name or not subject_apply or not phone:
         return jsonify({"status": "error", "message": "提交失败：表单信息不完整"}), 200
 
-    if not re.match(r'^[0-9+\-]+$', phone):
+    if not re.match(r'^[0-9+\\-]+$', phone):
         return jsonify({"status": "error", "message": "提交失败：联系电话包含非法字符"}), 200
 
     print(f"\n[💼 收到教师应聘] 老师姓名:{teacher_name} | 应聘科目:{subject_apply} | 电话:{phone}")
@@ -154,17 +169,21 @@ def apply_teacher():
     return jsonify({"status": "success", "message": "简历提交成功！感谢您对华文教育的支持，我们会尽快联系您。"})
 
 
-# --------- 接口四：教务处查看大盘通道 ---------
-@app.route('/api/admin/dashboard', methods=['GET'])
-def admin_dashboard():
-    return jsonify({
-        "status": "success",
-        "total_registrations": len(MOCK_REGISTRATION_LIST),
-        "total_applications": len(MOCK_JOB_APPLICATION_LIST),
-        "registrations_data": MOCK_REGISTRATION_LIST,
-        "applications_data": MOCK_JOB_APPLICATION_LIST
-    })
+# --------- 接口四：校园新闻动态模拟接口 ---------
+@app.route('/api/news', methods=['GET'])
+def get_school_news():
+    news_list = [
+        {"id": 1, "tag": "招聘", "date": "2026-06-01", "title": "师资招聘公告", "summary": "学校现面向社会招聘优秀华文教师，详情请查看官方微信公众号或联系教务处。"},
+        {"id": 2, "tag": "招生", "date": "2026-05-20", "title": "新生报名须知", "summary": "2026学年度新学期招生工作已正式开启，请各位家长及时点击上方入口或到校提交资料。", "urgent": True},
+        {"id": 3, "tag": "校园", "date": "2026-05-15", "title": "校园活动通知", "summary": "为丰富同学们的课余生活，近期学校将举办夏季校园运动会，欢迎全体师生积极参与。"}
+    ]
+    return jsonify({"status": "success", "data": news_list})
 
 
 if __name__ == '__main__':
+    # 终端打印亮眼的启动成功提示
+    print("=" * 60)
+    print("🚀 彬乌伦佛经学校 教务系统后台本地开发服务已成功启动！")
+    print("🔗 成绩查询接口：http://127.0.0.1:5000/api/query_score")
+    print("=" * 60)
     app.run(host='127.0.0.1', port=5000, debug=True)

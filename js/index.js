@@ -80,14 +80,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* --- 事件监听 --- */
 
-    // 左右按钮点击事件
-    if (nextBtn) nextBtn.addEventListener('click', handleNext);
-    if (prevBtn) prevBtn.addEventListener('click', handlePrev);
+    // 左右按钮点击事件（加入定时器重置）
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        stopTimer();
+        handleNext();
+        startTimer();
+      });
+    }
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        stopTimer();
+        handlePrev();
+        startTimer();
+      });
+    }
 
-    // 底部圆点点击切换事件
+    // 底部圆点点击切换事件（加入定时器重置）
     dots.forEach((dot, index) => {
       dot.addEventListener('click', () => {
+        stopTimer();
         goToSlide(index);
+        startTimer();
       });
     });
 
@@ -96,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
       banner.addEventListener('mouseenter', stopTimer);
       banner.addEventListener('mouseleave', startTimer);
     }
+
 
     // 初始化启动自动播放
     startTimer();
