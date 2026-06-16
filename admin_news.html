@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>彬乌伦佛经学校 - 新闻管理安全后台</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #eef2f5;
+      padding: 40px;
+      margin: 0;
+    }
+
+    /* 1. 登录卡片样式 */
+    .login-box {
+      max-width: 400px;
+      background: white;
+      padding: 35px;
+      border-radius: 12px;
+      margin: 100px auto 0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      text-align: center;
+    }
+
+    .login-box h2 {
+      margin-bottom: 25px;
+      color: #333;
+      font-size: 22px;
+    }
+
+    /* 2. 发布表单卡片样式 */
+    .form-box {
+      max-width: 650px;
+      background: white;
+      padding: 35px;
+      border-radius: 12px;
+      margin: 0 auto;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      display: none;
+      position: relative;
+    }
+
+    .form-box h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-top: 0;
+    }
+
+    /* 通用输入框组 */
+    .form-group {
+      margin-bottom: 22px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #555;
+      font-size: 14px;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 11px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-size: 14px;
+      transition: border 0.3s;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background: #0056b3;
+    }
+
+    /* 登出退出按钮 */
+    .logout-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .logout-btn:hover {
+      background: #bd2130;
+    }
+
+    .tip-text {
+      font-size: 12px;
+      color: #888;
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="login-box" id="loginView">
+    <h2>🔑 学校管理层安全登录</h2>
+    <div class="form-group" style="text-align: left;">
+      <label>管理账号</label>
+      <input type="text" id="login_username" placeholder="请输入管理员账号">
+    </div>
+    <div class="form-group" style="text-align: left;">
+      <label>登录密码</label>
+      <input type="password" id="login_password" placeholder="请输入六位安全密码" onkeydown="if(event.keyCode==13) doLogin()">
+    </div>
+    <button class="btn" onclick="doLogin()">安全登录</button>
+  </div>
+
+
+  <div class="form-box" id="adminFormView">
+    <button class="logout-btn" onclick="doLogout()">退出系统 🚪</button>
+    <h2>📰 校园门户新闻发布后台</h2>
+
+    <div class="form-group">
+      <label>新闻标题</label>
+      <input type="text" id="news_title" placeholder="例如：我校成功举办2026学年华文朗诵比赛">
+    </div>
+
+    <div class="form-group">
+      <label>新闻分类标签</label>
+      <select id="news_tag">
+        <option value="校园">校园要闻 (生成网页带图卡片)</option>
+        <option value="招生">招生通知 (生成网页简洁行)</option>
+        <option value="招聘">师资招聘 (生成网页简洁行)</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>加急公告公告标记</label>
+      <label style="font-weight: normal; display: inline-flex; align-items: center; cursor: pointer;">
+        <input type="checkbox" id="news_urgent" style="transform: scale(1.2); margin-right: 8px;"> 勾选此项将在官网上打上红色的【🔥
+        紧急】醒目标签
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label>正文跳转网址链接 (🔗 微信公众号/PDF/Word)</label>
+      <input type="text" id="news_url" placeholder="请在这里粘贴微信公众号文章网址或 PDF 文件的网络路径">
+      <p class="tip-text">💡 说明：在微信排版好文章发布后把链接贴在这里，学生点击官网标题就会自动跳转过去看，无需重复在网页里排版图文视频。</p>
+    </div>
+
+    <div class="form-group">
+      <label>内容摘要 / 导语</label>
+      <textarea id="news_summary" rows="4" placeholder="请写2句简短的内容描述，展示在新闻封面上吸引读者点击..."></textarea>
+    </div>
+
+    <button class="btn" onclick="publishNews()">一键同步发布到官网</button>
+  </div>
+
+  <script>
+    // 💡 注意：跨域请求时，必须让 fetch 携带凭证(credentials: 'include')，服务器才能认出你的 Session 锁
+
+    // 一打开网页，先自动检查之前有没有登录过
+    document.addEventListener("DOMContentLoaded", function () {
+      fetch('http://127.0.0.1:5000/api/check_login', { credentials: 'include' })
+        .then(res => res.json())
+        .then(data => {
+          if (data.is_logged_in) {
+            showAdminForm();
+          }
+        });
+    });
+
+    // 执行登录动作
+    function doLogin() {
+      const user = document.getElementById('login_username').value.trim();
+      const pass = document.getElementById('login_password').value;
+
+      if (!user || !pass) {
+        alert("请输入完整的账号密码！");
+        return;
+      }
+
+      fetch('http://127.0.0.1:5000/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: user, password: pass }),
+        credentials: 'include'  // 🌟 极其重要：允许浏览器保存登录的小钥匙(Cookie)
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.status === "success") {
+            showAdminForm();
+          } else {
+            alert(data.message);
+          }
+        })
+        .catch(err => alert("无法连接到 Python 后端服务，请检查终端黑框是否关闭。"));
+    }
+
+    // 执行退出动作
+    function doLogout() {
+      fetch('http://127.0.0.1:5000/api/logout', { method: 'POST', credentials: 'include' })
+        .then(res => res.json())
+        .then(data => {
+          alert(data.message);
+          location.reload(); // 刷新页面，重新上锁
+        });
+    }
+
+    // 切换视图到表单
+    function showAdminForm() {
+      document.getElementById('loginView').style.display = 'none';
+      document.getElementById('adminFormView').style.display = 'block';
+    }
+
+    // 原有的发布新闻函数（已追随安全机制升级）
+    function publishNews() {
+      const title = document.getElementById('news_title').value.trim();
+      const tag = document.getElementById('news_tag').value;
+      const summary = document.getElementById('news_summary').value.trim();
+      const url = document.getElementById('news_url').value.trim();
+      const urgent = document.getElementById('news_urgent').checked ? "1" : "0";
+
+      if (!title || !summary) {
+        alert("错误：标题和内容简介为必填项！");
+        return;
+      }
+
+      const newsData = { title: title, tag: tag, summary: summary, url: url ? url : "#", urgent: urgent };
+
+      fetch('http://127.0.0.1:5000/api/add_news', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newsData),
+        credentials: 'include' // 🌟 必须带上凭证，否则 Flask 会判定为非法越权访问
+      })
+        .then(res => {
+          if (res.status === 403) {
+            alert("🔒 拒绝访问：检测到您的登录凭证已失效，请重新登录！");
+            location.reload();
+            return;
+          }
+          return res.json();
+        })
+        .then(data => {
+          if (data && data.status === "success") {
+            alert(data.message);
+            document.getElementById('news_title').value = "";
+            document.getElementById('news_summary').value = "";
+            document.getElementById('news_url').value = "";
+            document.getElementById('news_urgent').checked = false;
+          }
+        });
+    }
+  </script>
+</body>
+
+</html>

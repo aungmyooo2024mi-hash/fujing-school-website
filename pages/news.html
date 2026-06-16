@@ -12,9 +12,6 @@
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/common.css">
   <style>
-    /* ==========================================================================
-       针对新闻公告页面的局部精致响应式样式（不污染 common.css）
-       ========================================================================== */
     .news-wrapper {
       background-color: var(--bg-light);
       padding: 40px 16px;
@@ -28,12 +25,17 @@
       gap: 40px;
     }
 
-    /* 1. 校园热点 - 网格卡片样式 */
     .news-grid {
       display: grid;
       grid-template-columns: 1fr;
-      /* 手机端默认单列 */
       gap: 20px;
+    }
+
+    /* 让卡片本身变成可点击的块元素 */
+    .news-card-link {
+      text-decoration: none;
+      color: inherit;
+      display: flex;
     }
 
     .news-card {
@@ -44,10 +46,12 @@
       transition: transform 0.3s;
       display: flex;
       flex-direction: column;
+      width: 100%;
     }
 
     .news-card:hover {
       transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
     }
 
     .news-img {
@@ -78,13 +82,21 @@
       line-height: 1.4;
     }
 
+    .urgent-badge {
+      background: #ff4d4f;
+      color: white;
+      font-size: 11px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 5px;
+    }
+
     .news-body p {
       font-size: 13.5px;
       color: #555555;
       line-height: 1.6;
     }
 
-    /* 2. 通知公告 - 简洁列表样式 */
     .notice-list {
       background: #ffffff;
       border-radius: 8px;
@@ -95,7 +107,6 @@
     .notice-item {
       display: flex;
       flex-direction: column;
-      /* 手机端上下排列 */
       padding: 16px 0;
       border-bottom: 1px dashed #eef2f5;
       text-align: left;
@@ -123,9 +134,13 @@
       color: var(--primary-color);
     }
 
-    /* ==========================================================================
-       PC端大屏自适应升级 (> 768px)
-       ========================================================================== */
+    .no-data-tip {
+      text-align: center;
+      color: #999;
+      padding: 40px 0;
+      font-size: 14px;
+    }
+
     @media (min-width: 768px) {
       .news-wrapper {
         padding: 60px 0;
@@ -135,7 +150,6 @@
         gap: 50px;
       }
 
-      /* 新闻网格变为两栏并排 */
       .news-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 30px;
@@ -149,7 +163,6 @@
         font-size: 18px;
       }
 
-      /* 通知公告变为左日期、右标题的横向整齐排版 */
       .notice-list {
         padding: 30px 40px;
       }
@@ -171,7 +184,6 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        /* 超出文本自动变省略号 */
       }
     }
   </style>
@@ -201,7 +213,6 @@
   </header>
 
   <main class="main-about">
-
     <section class="about-hero">
       <div class="hero-overlay">
         <h1>新闻公告</h1>
@@ -217,27 +228,7 @@
             <h2>校园要闻 / Campus News</h2>
             <span class="line"></span>
           </div>
-          <div class="news-grid">
-
-            <article class="news-card">
-              <img src="../image/dbdea1b6933329fa467aacdf55b439de.jpg" alt="活动缩略图" class="news-img">
-              <div class="news-body">
-                <span class="news-date">📅 2026年05月20日</span>
-                <h3>我校成功举办2026学年华文朗诵比赛</h3>
-                <p>为弘扬中华传统文化，提高学生的口语表达能力，我校于本周三下午在礼堂举行了年度华文朗诵比赛。各年级学子各显身手，现场气氛热烈非凡...</p>
-              </div>
-            </article>
-
-            <article class="news-card">
-              <img src="../image/dbdea1b6933329fa467aacdf55b439de.jpg" alt="活动缩略图" class="news-img">
-              <div class="news-body">
-                <span class="news-date">📅 2026年04月15日</span>
-                <h3>中缅友好交流代表团莅临我校参观指导</h3>
-                <p>代表团一行对我校在海外华文教育、双语课程建设方面取得的成果给予了高度评价，并向学校捐赠了一批全新的中文多媒体教学设备...</p>
-              </div>
-            </article>
-
-          </div>
+          <div class="news-grid" id="campus-news-box"></div>
         </section>
 
         <section>
@@ -245,29 +236,7 @@
             <h2>通知公告 / Notice</h2>
             <span class="line"></span>
           </div>
-          <div class="notice-list">
-
-            <div class="notice-item">
-              <span class="notice-item-date">📌 2026-06-01</span>
-              <a href="#" class="notice-item-title">【重要】彬乌伦佛经学校2026学年度下学期开学注册须知</a>
-            </div>
-
-            <div class="notice-item">
-              <span class="notice-item-date">📌 2026-05-10</span>
-              <a href="#" class="notice-item-title">【招聘】2026年秋季学期中小学华文教师招聘面试时间安排通知</a>
-            </div>
-
-            <div class="notice-item">
-              <span class="notice-item-date">📌 2026-04-30</span>
-              <a href="#" class="notice-item-title">关于2026年“泼水节”期间学校放假及安全注意事项的通知</a>
-            </div>
-
-            <div class="notice-item">
-              <span class="notice-item-date">📌 2026-03-12</span>
-              <a href="#" class="notice-item-title">我校多媒体教学设备升级采购项目招标结果公示</a>
-            </div>
-
-          </div>
+          <div class="notice-list" id="notice-list-box"></div>
         </section>
 
       </div>
@@ -282,9 +251,7 @@
         <p><strong>✉️ 官方邮箱：</strong>contact@poldfjbs.edu.mm</p>
       </div>
       <div class="footer-qrcode">
-        <div class="qr-placeholder">
-          <span>微信公众号<br>二维码</span>
-        </div>
+        <div class="qr-placeholder"><span>微信公众号<br>二维码</span></div>
       </div>
     </div>
     <div class="footer-bottom">
@@ -293,6 +260,74 @@
   </footer>
 
   <script src="../js/common.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      loadLiveNews();
+    });
+
+    function loadLiveNews() {
+      const campusBox = document.getElementById("campus-news-box");
+      const noticeBox = document.getElementById("notice-list-box");
+
+      fetch('http://127.0.0.1:5000/api/news')
+        .then(response => response.json())
+        .then(res => {
+          if (res.status === "success" && res.data.length > 0) {
+            campusBox.innerHTML = "";
+            noticeBox.innerHTML = "";
+
+            let campusCount = 0;
+            let noticeCount = 0;
+
+            res.data.forEach(item => {
+              const urgentHTML = item.urgent ? `<span class="urgent-badge">🔥 紧急</span>` : '';
+
+              // 🌟 核心：如果传回来了真实网址，点击时新开标签页打开 (target="_blank")
+              const targetUrl = item.url ? item.url : '#';
+
+              if (item.tag === "校园") {
+                campusCount++;
+                const cardHTML = `
+                            <a href="${targetUrl}" target="_blank" class="news-card-link">
+                                <article class="news-card">
+                                  <img src="../image/dbdea1b6933329fa467aacdf55b439de.jpg" alt="活动图" class="news-img">
+                                  <div class="news-body">
+                                    <span class="news-date">📅 ${item.date}</span>
+                                    <h3 style="margin-top:0;">${item.title} ${urgentHTML}</h3>
+                                    <p>${item.summary}</p>
+                                  </div>
+                                </article>
+                            </a>
+                        `;
+                campusBox.insertAdjacentHTML('beforeend', cardHTML);
+              } else {
+                noticeCount++;
+                const itemHTML = `
+                            <div class="notice-item">
+                              <span class="notice-item-date">📌 ${item.date}</span>
+                              <a href="${targetUrl}" target="_blank" class="notice-item-title">【${item.tag}】${item.title} ${urgentHTML}</a>
+                            </div>
+                        `;
+                noticeBox.insertAdjacentHTML('beforeend', itemHTML);
+              }
+            });
+
+            if (campusCount === 0) campusBox.innerHTML = `<div class="no-data-tip">暂无最新的校园动态资讯</div>`;
+            if (noticeCount === 0) noticeBox.innerHTML = `<div class="no-data-tip">暂无最新的官方通知公告</div>`;
+
+          } else {
+            campusBox.innerHTML = `<div class="no-data-tip">后台尚未发布任何校园新闻</div>`;
+            noticeBox.innerHTML = `<div class="no-data-tip">后台尚未发布任何通知公告</div>`;
+          }
+        })
+        .catch(err => {
+          console.error("加载错误:", err);
+          campusBox.innerHTML = `<div class="no-data-tip" style="color:#ff4d4f;">❌ 无法连接到服务器，请检查后端 Python 服务。</div>`;
+          noticeBox.innerHTML = `<div class="no-data-tip" style="color:#ff4d4f;">❌ 无法连接到服务器，请检查后端 Python 服务。</div>`;
+        });
+    }
+  </script>
 </body>
 
 </html>
