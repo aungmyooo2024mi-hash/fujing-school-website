@@ -3,60 +3,99 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>彬乌伦佛经学校 - 新闻管理安全后台</title>
+  <title>彬乌伦佛经学校 - 教务数据管理综合后台</title>
+  <meta name="description"
+    content="彬乌伦佛经学校官方网站提供2026学年最新华文教育课程、新生报名须知、师资招聘公告及校园风采展示。学校致力于弘扬中华文化，推动缅中双语教育，为学生打造优质的学习发展与成长环境。">
+  <meta name="keywords" content="彬乌伦佛经学校,缅甸华文学校,彬乌伦学校招生,缅甸中文培训,缅中双语学校">
+  <link rel="shortcut icon" href="./image/45a2c44216f7de784ade62aa60292dd7.jpg" type="image/x-icon">
   <style>
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
-      background: #eef2f5;
-      padding: 40px;
+      background: #f0f2f5;
+      padding: 30px;
       margin: 0;
+      color: #333;
     }
 
-    /* 1. 登录卡片样式 */
     .login-box {
       max-width: 400px;
       background: white;
-      padding: 35px;
+      padding: 40px;
       border-radius: 12px;
-      margin: 100px auto 0;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      margin: 120px auto 0;
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
       text-align: center;
     }
 
-    .login-box h2 {
-      margin-bottom: 25px;
-      color: #333;
-      font-size: 22px;
-    }
-
-    /* 2. 发布表单卡片样式 */
-    .form-box {
-      max-width: 650px;
-      background: white;
-      padding: 35px;
-      border-radius: 12px;
+    /* 综合管理大舱 */
+    .admin-container {
+      max-width: 1100px;
       margin: 0 auto;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
+      padding: 30px;
       display: none;
       position: relative;
     }
 
-    .form-box h2 {
-      text-align: center;
-      color: #2c3e50;
-      margin-top: 0;
+    .header-area {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #eef2f5;
+      padding-bottom: 20px;
+      margin-bottom: 25px;
     }
 
-    /* 通用输入框组 */
+    .header-area h2 {
+      margin: 0;
+      color: #1e293b;
+    }
+
+    /* 功能导航切换页 (Tabs) */
+    .tab-menu {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+
+    .tab-btn {
+      padding: 10px 20px;
+      background: #e2e8f0;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: bold;
+      color: #475569;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+      background: #007bff;
+      color: white;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* 表单与表格通用样式 */
     .form-group {
-      margin-bottom: 22px;
+      margin-bottom: 20px;
+      text-align: left;
     }
 
     label {
       display: block;
       margin-bottom: 8px;
       font-weight: bold;
-      color: #555;
+      color: #4a5568;
       font-size: 14px;
     }
 
@@ -67,59 +106,66 @@
       width: 100%;
       padding: 11px;
       border-radius: 6px;
-      border: 1px solid #ccc;
+      border: 1px solid #cbd5e1;
       box-sizing: border-box;
       font-size: 14px;
-      transition: border 0.3s;
-    }
-
-    input:focus,
-    textarea:focus,
-    select:focus {
-      border-color: #007bff;
-      outline: none;
     }
 
     .btn {
-      width: 100%;
-      padding: 12px;
+      padding: 12px 24px;
       background: #007bff;
       color: white;
       border: none;
       border-radius: 6px;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: bold;
-      transition: background 0.2s;
     }
 
     .btn:hover {
       background: #0056b3;
     }
 
-    /* 登出退出按钮 */
     .logout-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: #dc3545;
+      background: #ef4444;
       color: white;
       border: none;
-      padding: 6px 12px;
-      border-radius: 4px;
+      padding: 8px 16px;
+      border-radius: 6px;
       cursor: pointer;
-      font-size: 12px;
+      font-weight: bold;
     }
 
-    .logout-btn:hover {
-      background: #bd2130;
+    /* 数据表格漂亮排版 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      font-size: 14px;
+      text-align: left;
     }
 
-    .tip-text {
-      font-size: 12px;
-      color: #888;
-      margin-top: 6px;
-      line-height: 1.5;
+    th,
+    td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    th {
+      background: #f8fafc;
+      color: #64748b;
+      font-weight: bold;
+    }
+
+    tr:hover {
+      background: #f8fafc;
+    }
+
+    .no-data {
+      text-align: center;
+      color: #94a3b8;
+      padding: 30px;
+      font-style: italic;
     }
   </style>
 </head>
@@ -127,117 +173,190 @@
 <body>
 
   <div class="login-box" id="loginView">
-    <h2>🔑 学校管理层安全登录</h2>
-    <div class="form-group" style="text-align: left;">
+    <h2>🔑 教务安全后台登录</h2>
+    <div class="form-group">
       <label>管理账号</label>
       <input type="text" id="login_username" placeholder="请输入管理员账号">
     </div>
-    <div class="form-group" style="text-align: left;">
+    <div class="form-group">
       <label>登录密码</label>
-      <input type="password" id="login_password" placeholder="请输入六位安全密码" onkeydown="if(event.keyCode==13) doLogin()">
+      <input type="password" id="login_password" placeholder="请输入安全验证密码" onkeydown="if(event.keyCode==13) doLogin()">
     </div>
-    <button class="btn" onclick="doLogin()">安全登录</button>
+    <button class="btn" style="width:100%" onclick="doLogin()">安全登录验证</button>
   </div>
 
-
-  <div class="form-box" id="adminFormView">
-    <button class="logout-btn" onclick="doLogout()">退出系统 🚪</button>
-    <h2>📰 校园门户新闻发布后台</h2>
-
-    <div class="form-group">
-      <label>新闻标题</label>
-      <input type="text" id="news_title" placeholder="例如：我校成功举办2026学年华文朗诵比赛">
+  <div class="admin-container" id="adminContainerView">
+    <div class="header-area">
+      <h2>🏫 彬乌伦佛经学校 · 教务总控制台</h2>
+      <button class="logout-btn" onclick="doLogout()">退出系统 🚪</button>
     </div>
 
-    <div class="form-group">
-      <label>新闻分类标签</label>
-      <select id="news_tag">
-        <option value="校园">校园要闻 (生成网页带图卡片)</option>
-        <option value="招生">招生通知 (生成网页简洁行)</option>
-        <option value="招聘">师资招聘 (生成网页简洁行)</option>
-      </select>
+    <div class="tab-menu">
+      <button class="tab-btn active" onclick="switchTab('news-tab')">📰 发布校园新闻</button>
+      <button class="tab-btn" onclick="switchTab('enroll-tab')">👶 查看新生预报名列表</button>
+      <button class="tab-btn" onclick="switchTab('teacher-tab')">💼 查看教师应聘简历</button>
     </div>
 
-    <div class="form-group">
-      <label>加急公告公告标记</label>
-      <label style="font-weight: normal; display: inline-flex; align-items: center; cursor: pointer;">
-        <input type="checkbox" id="news_urgent" style="transform: scale(1.2); margin-right: 8px;"> 勾选此项将在官网上打上红色的【🔥
-        紧急】醒目标签
-      </label>
+    <div id="news-tab" class="tab-content active">
+      <div class="form-group">
+        <label>新闻标题</label>
+        <input type="text" id="news_title" placeholder="请输入新闻公告标题">
+      </div>
+      <div class="form-group">
+        <label>分类归属</label>
+        <select id="news_tag">
+          <option value="校园">校园要闻 (前台带大图封面)</option>
+          <option value="招生">招生通知 (前台简洁通知行)</option>
+          <option value="招聘">师资招聘 (前台简洁通知行)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label style="font-weight: normal; cursor: pointer;">
+          <input type="checkbox" id="news_urgent"> 设置为【🔥 紧急】公告
+        </label>
+      </div>
+      <div class="form-group">
+        <label>正文跳转链接 (🔗 微信公众号/PDF网址)</label>
+        <input type="text" id="news_url" placeholder="请在这里粘贴微信公众号文章链接，无链接可填 #">
+      </div>
+      <div class="form-group">
+        <label>内容简介 / 导语</label>
+        <textarea id="news_summary" rows="4" placeholder="请输入简短的摘要描述..."></textarea>
+      </div>
+      <button class="btn" onclick="publishNews()">同步同步发布到官网首页</button>
     </div>
 
-    <div class="form-group">
-      <label>正文跳转网址链接 (🔗 微信公众号/PDF/Word)</label>
-      <input type="text" id="news_url" placeholder="请在这里粘贴微信公众号文章网址或 PDF 文件的网络路径">
-      <p class="tip-text">💡 说明：在微信排版好文章发布后把链接贴在这里，学生点击官网标题就会自动跳转过去看，无需重复在网页里排版图文视频。</p>
+    <div id="enroll-tab" class="tab-content">
+      <h3>👶 官网实时接收的新生预报名登记表</h3>
+      <p style="color:#64748b; font-size:13px;">提示：数据已在服务器端写入《新生报名表.xlsx》，以下展示最新递交的动态记录：</p>
+      <div style="overflow-x: auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>报名时间</th>
+              <th>学生姓名</th>
+              <th>年龄</th>
+              <th>报读年级</th>
+              <th>家长电话</th>
+              <th>微信/联系方式</th>
+              <th>居住区域</th>
+              <th>备注说明</th>
+            </tr>
+          </thead>
+          <tbody id="enroll-table-body">
+          </tbody>
+        </table>
+      </div>
     </div>
 
-    <div class="form-group">
-      <label>内容摘要 / 导语</label>
-      <textarea id="news_summary" rows="4" placeholder="请写2句简短的内容描述，展示在新闻封面上吸引读者点击..."></textarea>
+    <div id="teacher-tab" class="tab-content">
+      <h3>💼 官网实时收到的教师应聘简历库</h3>
+      <p style="color:#64748b; font-size:13px;">提示：数据已在服务器端写入《教师应聘表.xlsx》：</p>
+      <div style="overflow-x: auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>投递时间</th>
+              <th>应聘老师姓名</th>
+              <th>意向授课科目</th>
+              <th>联系电话</th>
+            </tr>
+          </thead>
+          <tbody id="teacher-table-body">
+          </tbody>
+        </table>
+      </div>
     </div>
-
-    <button class="btn" onclick="publishNews()">一键同步发布到官网</button>
   </div>
 
   <script>
-    // 💡 注意：跨域请求时，必须让 fetch 携带凭证(credentials: 'include')，服务器才能认出你的 Session 锁
-
-    // 一打开网页，先自动检查之前有没有登录过
+    // 检查登录状态
     document.addEventListener("DOMContentLoaded", function () {
       fetch('http://127.0.0.1:5000/api/check_login', { credentials: 'include' })
         .then(res => res.json())
-        .then(data => {
-          if (data.is_logged_in) {
-            showAdminForm();
-          }
-        });
+        .then(data => { if (data.is_logged_in) showDashboard(); });
     });
 
-    // 执行登录动作
+    // 登录
     function doLogin() {
-      const user = document.getElementById('login_username').value.trim();
-      const pass = document.getElementById('login_password').value;
-
-      if (!user || !pass) {
-        alert("请输入完整的账号密码！");
-        return;
-      }
-
+      const u = document.getElementById('login_username').value.trim();
+      const p = document.getElementById('login_password').value;
       fetch('http://127.0.0.1:5000/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: user, password: pass }),
-        credentials: 'include'  // 🌟 极其重要：允许浏览器保存登录的小钥匙(Cookie)
+        body: JSON.stringify({ username: u, password: p }),
+        credentials: 'include'
       })
         .then(res => res.json())
         .then(data => {
-          if (data.status === "success") {
-            showAdminForm();
-          } else {
-            alert(data.message);
-          }
-        })
-        .catch(err => alert("无法连接到 Python 后端服务，请检查终端黑框是否关闭。"));
-    }
-
-    // 执行退出动作
-    function doLogout() {
-      fetch('http://127.0.0.1:5000/api/logout', { method: 'POST', credentials: 'include' })
-        .then(res => res.json())
-        .then(data => {
-          alert(data.message);
-          location.reload(); // 刷新页面，重新上锁
+          if (data.status === "success") showDashboard();
+          else alert(data.message);
         });
     }
 
-    // 切换视图到表单
-    function showAdminForm() {
-      document.getElementById('loginView').style.display = 'none';
-      document.getElementById('adminFormView').style.display = 'block';
+    // 登出
+    function doLogout() {
+      fetch('http://127.0.0.1:5000/api/logout', { method: 'POST', credentials: 'include' })
+        .then(() => location.reload());
     }
 
-    // 原有的发布新闻函数（已追随安全机制升级）
+    // 激活后台大舱
+    function showDashboard() {
+      document.getElementById('loginView').style.display = 'none';
+      document.getElementById('adminContainerView').style.display = 'block';
+      fetchAdminData(); // 顺手把表格数据拉下来
+    }
+
+    // 选项卡切换控制
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    // 从安全接口向后端索要 Excel 里的报名与招聘数据
+    function fetchAdminData() {
+      fetch('http://127.0.0.1:5000/api/admin/get_data', { credentials: 'include' })
+        .then(res => {
+          if (res.status === 403) { location.reload(); return; }
+          return res.json();
+        })
+        .then(res => {
+          if (res && res.status === "success") {
+            // 1. 渲染报名表
+            const enrollBody = document.getElementById('enroll-table-body');
+            if (res.enrollments.length === 0) {
+              enrollBody.innerHTML = `<tr><td colspan="8" class="no-data">目前还没有家长在网上提交预报名申请</td></tr>`;
+            } else {
+              enrollBody.innerHTML = res.enrollments.map(x => `
+                        <tr>
+                            <td>${x['报名时间'] || ''}</td><td><strong>${x['学生姓名'] || ''}</strong></td>
+                            <td>${x['年龄'] || ''} 岁</td><td><span style="color:#007bff;font-weight:bold;">${x['报读年级'] || ''}</span></td>
+                            <td>${x['家长电话'] || ''}</td><td>${x['微信/联系方式'] || ''}</td>
+                            <td>${x['居住区域'] || ''}</td><td style="color:#666;font-size:13px;">${x['备注说明'] || '无'}</td>
+                        </tr>
+                    `).join('');
+            }
+
+            // 2. 渲染招聘表
+            const teacherBody = document.getElementById('teacher-table-body');
+            if (res.teachers.length === 0) {
+              teacherBody.innerHTML = `<tr><td colspan="4" class="no-data">目前还没有收到任何老师的应聘简历</td></tr>`;
+            } else {
+              teacherBody.innerHTML = res.teachers.map(x => `
+                        <tr>
+                            <td>${x['投递时间'] || ''}</td><td><strong>${x['应聘老师'] || ''}</strong></td>
+                            <td><span style="background:#e1f5fe;color:#0288d1;padding:3px 8px;border-radius:4px;">${x['意向科目'] || ''}</span></td>
+                            <td>${x['电话号码'] || ''}</td>
+                        </tr>
+                    `).join('');
+            }
+          }
+        });
+    }
+
+    // 固有的发布新闻函数
     function publishNews() {
       const title = document.getElementById('news_title').value.trim();
       const tag = document.getElementById('news_tag').value;
@@ -245,35 +364,21 @@
       const url = document.getElementById('news_url').value.trim();
       const urgent = document.getElementById('news_urgent').checked ? "1" : "0";
 
-      if (!title || !summary) {
-        alert("错误：标题和内容简介为必填项！");
-        return;
-      }
-
-      const newsData = { title: title, tag: tag, summary: summary, url: url ? url : "#", urgent: urgent };
+      if (!title || !summary) { alert("标题和摘要内容不能为空！"); return; }
 
       fetch('http://127.0.0.1:5000/api/add_news', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newsData),
-        credentials: 'include' // 🌟 必须带上凭证，否则 Flask 会判定为非法越权访问
+        body: JSON.stringify({ title, tag, summary, url: url ? url : "#", urgent }),
+        credentials: 'include'
       })
-        .then(res => {
-          if (res.status === 403) {
-            alert("🔒 拒绝访问：检测到您的登录凭证已失效，请重新登录！");
-            location.reload();
-            return;
-          }
-          return res.json();
-        })
+        .then(res => res.json())
         .then(data => {
-          if (data && data.status === "success") {
-            alert(data.message);
-            document.getElementById('news_title').value = "";
-            document.getElementById('news_summary').value = "";
-            document.getElementById('news_url').value = "";
-            document.getElementById('news_urgent').checked = false;
-          }
+          alert(data.message);
+          document.getElementById('news_title').value = "";
+          document.getElementById('news_summary').value = "";
+          document.getElementById('news_url').value = "";
+          document.getElementById('news_urgent').checked = false;
         });
     }
   </script>
